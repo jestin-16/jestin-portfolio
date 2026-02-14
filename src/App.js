@@ -36,12 +36,6 @@ const SKILLS = [
   { category: "DevOps & Tools", items: ["Git/GitHub", "Docker", "AWS (S3, EC2)", "Jira", "CI/CD", "VS Code"] },
 ];
 
-const PROJECTS = [
-  { title: "Attendance Management system", description: "Lab attendance management system ", link: "https://attendancesystem-delta.vercel.app/" },
-  { title: "Data Visualization Dashboard", description: "Created an interactive dashboard using D3.js and React to visualize large datasets. Optimized rendering performance for complex charts.", link: "#" },
-  { title: "Magic Paints", description: "An AI-powered web application that generates unique digital paintings based on user inputs and preferences.", link: "#" },
-];
-
 // --- Utility Functions ---
 
 // Smooth scrolling function
@@ -71,7 +65,7 @@ const App = () => {
       { root: null, rootMargin: '0px', threshold: 0.5 }
     );
 
-    ['home', 'about', 'skills', 'projects', 'contact'].forEach(id => {
+    ['home', 'about', 'skills', 'cv', 'contact'].forEach(id => {
       const element = document.getElementById(id);
       if (element) observer.observe(element);
     });
@@ -97,8 +91,8 @@ const App = () => {
     <div className="min-h-screen font-sans bg-slate-900 text-slate-200">
       
       {/* HEADER / NAVIGATION */}
-      <header className="sticky top-0 z-50 w-full border-b shadow-xl bg-slate-900/95 backdrop-blur-sm border-slate-800">
-        <div className="flex items-center justify-between h-16 px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+      <header className="sticky top-0 z-50 w-full border-b shadow-xl backdrop-blur-sm bg-slate-900/95 border-slate-800">
+        <div className="flex justify-between items-center px-4 mx-auto max-w-7xl h-16 sm:px-6 lg:px-8">
           <div className="text-2xl font-extrabold tracking-wider text-indigo-400 transition-colors cursor-pointer hover:text-indigo-300">
             JESTIN.dev
           </div>
@@ -107,7 +101,7 @@ const App = () => {
               <NavLink id="home" label="Home" />
               <NavLink id="about" label="About" />
               <NavLink id="skills" label="Skills" />
-              <NavLink id="projects" label="Projects" />
+              <NavLink id="cv" label="CV" />
               <NavLink id="contact" label="Contact" />
             </ul>
           </nav>
@@ -124,14 +118,14 @@ const App = () => {
             <h1 className="text-6xl font-extrabold leading-tight text-white sm:text-7xl lg:text-8xl">
               Jestin.
             </h1>
-            <h2 className="max-w-4xl mx-auto text-3xl font-bold sm:text-4xl lg:text-5xl text-slate-400">
+            <h2 className="mx-auto max-w-4xl text-3xl font-bold sm:text-4xl lg:text-5xl text-slate-400">
               I build robust and scalable web applications.
             </h2>
-            <p className="max-w-3xl pt-4 mx-auto text-lg text-slate-400">
+            <p className="pt-4 mx-auto max-w-3xl text-lg text-slate-400">
               I'm a **Software Developer** currently under development (learning and growing!). Thanks for checking out my portfolio. I focus on creating high-performance, user-friendly digital experiences.
             </p>
             <button
-              onClick={() => scrollToSection('projects')}
+              onClick={() => scrollToSection('cv')}
               className="mt-8 px-8 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-xl hover:bg-indigo-700 transform hover:scale-[1.02] transition duration-300 ease-in-out border border-transparent hover:border-indigo-400"
             >
               View My Work
@@ -142,11 +136,11 @@ const App = () => {
         {/* 2. ABOUT ME SECTION */}
         <section id="about" className="px-4 py-20 border-t border-slate-800">
           <h3 className="mb-12 text-4xl font-bold text-center text-indigo-400">About Me</h3>
-          <div className="grid items-start max-w-4xl gap-10 mx-auto md:grid-cols-3">
+          <div className="grid gap-10 items-start mx-auto max-w-4xl md:grid-cols-3">
             
             {/* Image Placeholder - Use a clear image or avatar later */}
             <div className="flex justify-center md:col-span-1">
-              <div className="flex items-center justify-center w-48 h-48 overflow-hidden text-2xl font-bold border-4 border-indigo-500 rounded-full bg-slate-700 text-slate-300">
+              <div className="flex overflow-hidden justify-center items-center w-48 h-48 text-2xl font-bold rounded-full border-4 border-indigo-500 bg-slate-700 text-slate-300">
                 J.D.
               </div>
             </div>
@@ -169,7 +163,7 @@ const App = () => {
         <section id="skills" className="px-4 py-20 border-t border-slate-800">
           <h3 className="mb-12 text-4xl font-bold text-center text-indigo-400">Technical Skills</h3>
           
-          <div className="grid max-w-6xl gap-8 mx-auto md:grid-cols-3">
+          <div className="grid gap-8 mx-auto max-w-6xl md:grid-cols-3">
             {SKILLS.map((skillGroup, index) => (
               <div
                 key={index}
@@ -191,51 +185,36 @@ const App = () => {
           </div>
         </section>
         
-        {/* 4. PROJECTS SECTION */}
-        <section id="projects" className="px-4 py-20 border-t border-slate-800">
-          <h3 className="mb-12 text-4xl font-bold text-center text-indigo-400">Featured Projects</h3>
-          
-          <div className="grid max-w-6xl gap-10 mx-auto lg:grid-cols-3">
-            {PROJECTS.map((project, index) => (
-              <div
-                key={index}
-                className="flex flex-col h-full p-8 transition duration-300 border shadow-2xl bg-slate-800 rounded-xl hover:shadow-indigo-500/30 border-slate-700"
-              >
-                <FolderIcon className="w-8 h-8 mb-4 text-indigo-400" />
-                <h4 className="mb-2 text-xl font-bold text-white">{project.title}</h4>
-                <p className="flex-grow mb-4 text-slate-400">{project.description}</p>
-                <div className="flex mt-4 space-x-4">
-                  <a
-                    href=""// Placeholder link
-                    className="flex items-center text-sm font-medium text-indigo-400 transition duration-200 hover:text-indigo-300"
-                  >
-                    <GitHubIcon className="w-4 h-4 mr-1" /> Code
-                  </a>
-                  <a
-                    href={project.link}  // Placeholder link
-                    className="text-sm font-medium text-indigo-400 transition duration-200 hover:text-indigo-300"
-                  >
-                    Live Demo &rarr;
-                  </a>
-                </div>
-              </div>
-            ))}
+        {/* 4. CV SECTION */}
+        <section id="cv" className="px-4 py-20 border-t border-slate-800">
+          <h3 className="mb-12 text-4xl font-bold text-center text-indigo-400">Curriculum Vitae</h3>
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="mb-8 text-lg text-slate-400">
+              Download my CV to view my experience, education, and skills in detail.
+            </p>
+            <a
+              href="/cv.pdf"
+              download
+              className="inline-flex items-center px-8 py-3 font-semibold text-white bg-indigo-600 rounded-lg border border-transparent shadow-xl transition duration-300 ease-in-out hover:bg-indigo-700 hover:border-indigo-400"
+            >
+              <FolderIcon className="mr-2 w-5 h-5" /> Download CV
+            </a>
           </div>
         </section>
 
         {/* 5. CONTACT SECTION */}
         <section id="contact" className="px-4 py-20 border-t border-slate-800">
           <h3 className="mb-8 text-4xl font-bold text-center text-indigo-400">Get In Touch</h3>
-          <p className="max-w-2xl mx-auto mb-12 text-xl text-center text-slate-400">
+          <p className="mx-auto mb-12 max-w-2xl text-xl text-center text-slate-400">
             I'm currently seeking new opportunities and challenges. Whether you have a question or just want to say hi, feel free to reach out!
           </p>
           
           <div className="flex justify-center">
              <a
               href="mailto:jestinshaji777@gmail.com" // Update with your real email
-              className="flex items-center px-8 py-3 font-semibold text-white transition duration-300 ease-in-out bg-indigo-600 rounded-lg shadow-xl hover:bg-indigo-700"
+              className="flex items-center px-8 py-3 font-semibold text-white bg-indigo-600 rounded-lg shadow-xl transition duration-300 ease-in-out hover:bg-indigo-700"
             >
-              <MailIcon className="w-5 h-5 mr-2" /> Say Hello
+              <MailIcon className="mr-2 w-5 h-5" /> Say Hello
             </a>
           </div>
         </section>
@@ -243,8 +222,8 @@ const App = () => {
       </main>
       
       {/* FOOTER */}
-      <footer className="w-full py-8 mt-12 border-t bg-slate-900 border-slate-800">
-        <div className="px-4 mx-auto text-center max-w-7xl">
+      <footer className="py-8 mt-12 w-full border-t bg-slate-900 border-slate-800">
+        <div className="px-4 mx-auto max-w-7xl text-center">
           <div className="flex justify-center mb-4 space-x-6">
             <a href="#" className="transition duration-200 text-slate-400 hover:text-indigo-400" title="GitHub">
               <GitHubIcon className="w-6 h-6" />
