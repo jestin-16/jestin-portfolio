@@ -8,11 +8,6 @@ const CodeIcon = (props) => (
   <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
 );
 
-// Icon for the Projects section - Folder
-const FolderIcon = (props) => (
-  <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2z"></path></svg>
-);
-
 // Icon for the Contact section - Mail
 const MailIcon = (props) => (
   <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
@@ -65,7 +60,7 @@ const App = () => {
       { root: null, rootMargin: '0px', threshold: 0.5 }
     );
 
-    ['home', 'about', 'skills', 'cv', 'contact'].forEach(id => {
+    ['home', 'about', 'skills', 'contact'].forEach(id => {
       const element = document.getElementById(id);
       if (element) observer.observe(element);
     });
@@ -101,7 +96,6 @@ const App = () => {
               <NavLink id="home" label="Home" />
               <NavLink id="about" label="About" />
               <NavLink id="skills" label="Skills" />
-              <NavLink id="cv" label="CV" />
               <NavLink id="contact" label="Contact" />
             </ul>
           </nav>
@@ -125,7 +119,7 @@ const App = () => {
               I'm a **Software Developer** currently under development (learning and growing!). Thanks for checking out my portfolio. I focus on creating high-performance, user-friendly digital experiences.
             </p>
             <button
-              onClick={() => scrollToSection('cv')}
+              onClick={() => scrollToSection('skills')}
               className="mt-8 px-8 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-xl hover:bg-indigo-700 transform hover:scale-[1.02] transition duration-300 ease-in-out border border-transparent hover:border-indigo-400"
             >
               View My Work
@@ -185,24 +179,7 @@ const App = () => {
           </div>
         </section>
         
-        {/* 4. CV SECTION */}
-        <section id="cv" className="px-4 py-20 border-t border-slate-800">
-          <h3 className="mb-12 text-4xl font-bold text-center text-indigo-400">Curriculum Vitae</h3>
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="mb-8 text-lg text-slate-400">
-              Download my CV to view my experience, education, and skills in detail.
-            </p>
-            <a
-              href="/cv.pdf"
-              download
-              className="inline-flex items-center px-8 py-3 font-semibold text-white bg-indigo-600 rounded-lg border border-transparent shadow-xl transition duration-300 ease-in-out hover:bg-indigo-700 hover:border-indigo-400"
-            >
-              <FolderIcon className="mr-2 w-5 h-5" /> Download CV
-            </a>
-          </div>
-        </section>
-
-        {/* 5. CONTACT SECTION */}
+        {/* 4. CONTACT SECTION */}
         <section id="contact" className="px-4 py-20 border-t border-slate-800">
           <h3 className="mb-8 text-4xl font-bold text-center text-indigo-400">Get In Touch</h3>
           <p className="mx-auto mb-12 max-w-2xl text-xl text-center text-slate-400">
