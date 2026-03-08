@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import {
   Code2,
   Mail,
@@ -8,8 +8,7 @@ import {
   ChevronRight,
   Layout,
   Database,
-  Terminal,
-  ExternalLink
+  Terminal
 } from 'lucide-react';
 
 const SKILLS = [
