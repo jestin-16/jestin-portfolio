@@ -221,7 +221,7 @@ const App = () => {
               transition={{ duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
               className="flex flex-col justify-center gap-6 pt-8 sm:flex-row"
             >
-              <motion.button
+              <button
                 onClick={() => scrollToSection('projects')}
                 className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 font-semibold text-white transition-all rounded-full bg-indigo-600 hover:bg-indigo-500 hover:shadow-[0_0_20px_rgba(99,102,241,0.4)]"
               >
@@ -233,9 +233,9 @@ const App = () => {
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 font-semibold transition-all border rounded-full text-slate-300 border-slate-700 bg-slate-900/50 hover:bg-slate-800 hover:text-white"
               >
                 Contact Me
-              </motion.button>
+              </button>
             </motion.div>
-          </motion.div>
+          </div>
         </section>
 
         {/* About Section */}
@@ -377,7 +377,7 @@ const App = () => {
                     {project.tags.map(tag => (
                       <span key={tag} className="px-3 py-1 text-xs font-medium text-indigo-300 bg-indigo-500/10 rounded-full border border-indigo-500/20">
                         {tag}
-                      </motion.span>
+                      </span>
                     ))}
                   </div>
                 </div>
@@ -404,7 +404,7 @@ const App = () => {
               </p>
 
               <div className="flex flex-col justify-center gap-4 pt-4 sm:flex-row">
-                <motion.a
+                <a
                   href="mailto:jestinshaji777@gmail.com"
                   className="inline-flex items-center justify-center px-8 py-4 font-semibold text-slate-900 bg-white rounded-full hover:bg-slate-200 transition-colors gap-2"
                 >
@@ -418,7 +418,7 @@ const App = () => {
                 </a>
                 <a href="https://www.linkedin.com/in/jestin-shaji" target="_blank" rel="noreferrer" className="p-3 transition-colors border rounded-full border-slate-700 bg-slate-800/50 hover:text-white hover:border-white/30 hover:bg-slate-700">
                   <Linkedin className="w-6 h-6" />
-                </motion.a>
+                </a>
               </div>
             </div>
           </motion.div>
@@ -428,7 +428,7 @@ const App = () => {
       <footer className="py-8 text-center border-t text-slate-500 border-white/5 bg-slate-950">
         <p>© {new Date().getFullYear()} Jestin Shaji. Designed with Purpose.</p>
       </footer>
-    </motion.div>
+    </div>
   );
 };
 
