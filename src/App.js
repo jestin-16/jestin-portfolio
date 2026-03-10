@@ -65,15 +65,15 @@ const scrollToSection = (id) => {
 
 // Advanced Animation variants
 const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
 };
 
 const staggerContainer = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.15, delayChildren: 0.1 }
+    transition: { staggerChildren: 0.1 }
   }
 };
 
@@ -114,47 +114,31 @@ const App = () => {
 
   const NavLink = ({ id, label }) => (
     <li className="relative">
-      <button
+      <motion.button
         onClick={() => scrollToSection(id)}
+        whileHover={{ y: -2 }}
+        whileTap={{ scale: 0.96 }}
         className={`px-4 py-2 text-sm font-medium transition-colors ${activeSection === id ? 'text-white' : 'text-slate-400 hover:text-white'
           }`}
       >
         {label}
-      </button>
+      </motion.button>
       {activeSection === id && (
         <motion.div
           layoutId="activeTab"
           className="absolute inset-0 z-[-1] rounded-full bg-indigo-500/20 border border-indigo-500/30"
-          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          transition={{ type: "spring", stiffness: 320, damping: 26 }}
         />
       )}
     </li>
   );
 
   return (
-    <div className="min-h-screen font-sans bg-[#020617] text-slate-200 selection:bg-indigo-500/30">
-      {/* Background Animated Orbs */}
+    <div className="min-h-screen font-sans bg-slate-950 text-slate-200 selection:bg-indigo-500/30">
+      {/* Background Orbs */}
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-        <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.15, 0.3, 0.15],
-            x: [0, 50, 0],
-            y: [0, -50, 0]
-          }}
-          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-          className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-indigo-600/20 blur-[120px]"
-        />
-        <motion.div
-          animate={{
-            scale: [1, 1.5, 1],
-            opacity: [0.15, 0.4, 0.15],
-            x: [0, -50, 0],
-            y: [0, 50, 0]
-          }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-cyan-600/20 blur-[120px]"
-        />
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-indigo-600/10 blur-[120px]" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-cyan-600/10 blur-[120px]" />
       </div>
 
       {/* Navigation */}
@@ -192,7 +176,7 @@ const App = () => {
       <main className="relative z-10 px-4 mx-auto max-w-7xl">
         {/* Hero Section */}
         <section id="home" className="flex items-center justify-center min-h-screen pt-20 text-center">
-          <div className="relative z-10 max-w-3xl space-y-8">
+          <div className="max-w-3xl space-y-8">
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -237,24 +221,21 @@ const App = () => {
               transition={{ duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
               className="flex flex-col justify-center gap-6 pt-8 sm:flex-row"
             >
-              <button
+              <motion.button
                 onClick={() => scrollToSection('projects')}
-                className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 font-semibold text-white transition-all rounded-full bg-indigo-600/90 backdrop-blur-md border border-indigo-500/50 hover:bg-indigo-500 hover:shadow-[0_0_30px_rgba(99,102,241,0.5)] overflow-hidden"
+                className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 font-semibold text-white transition-all rounded-full bg-indigo-600 hover:bg-indigo-500 hover:shadow-[0_0_20px_rgba(99,102,241,0.4)]"
               >
-                <span className="relative z-10 flex items-center gap-2">
-                  View My Work
-                  <ChevronRight className="w-5 h-5 transition-transform group-hover:translate-x-2" />
-                </span>
-                <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-indigo-600 to-cyan-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                View My Work
+                <ChevronRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
               </button>
               <button
                 onClick={() => scrollToSection('contact')}
-                className="relative inline-flex items-center justify-center gap-2 px-8 py-4 font-semibold transition-all border rounded-full text-slate-300 border-white/10 bg-white/5 backdrop-blur-md hover:bg-white/10 hover:text-white hover:border-white/20 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 font-semibold transition-all border rounded-full text-slate-300 border-slate-700 bg-slate-900/50 hover:bg-slate-800 hover:text-white"
               >
                 Contact Me
-              </button>
+              </motion.button>
             </motion.div>
-          </div>
+          </motion.div>
         </section>
 
         {/* About Section */}
@@ -284,20 +265,11 @@ const App = () => {
                   </p>
                 </div>
               </div>
-              <motion.div
-                whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
-                className="relative group"
-              >
-                <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/30 to-cyan-500/30 rounded-3xl blur-2xl group-hover:blur-3xl transition-all duration-500" />
-                <div className="relative aspect-square md:aspect-[4/3] rounded-3xl border border-white/10 bg-slate-900/80 backdrop-blur-xl p-6 flex flex-col justify-center items-center text-center shadow-2xl">
-                  <motion.div
-                    animate={{ y: [0, -10, 0] }}
-                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                  >
-                    <Terminal className="w-16 h-16 mb-6 text-indigo-400 opacity-80" />
-                  </motion.div>
-                  <p className="text-sm font-mono text-slate-300 text-left w-full max-w-[250px]">
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/20 to-cyan-500/20 rounded-2xl blur-2xl" />
+                <div className="relative aspect-square md:aspect-[4/3] rounded-2xl border border-white/10 bg-slate-900/50 p-6 flex flex-col justify-center items-center text-center">
+                  <Terminal className="w-16 h-16 mb-4 text-indigo-400" />
+                  <p className="text-sm font-mono text-slate-400">
                     <span className="text-pink-400">const</span> <span className="text-blue-400">developer</span> = {'{'}
                     <br />
                     <span className="ml-4">name: <span className="text-green-400">"Jestin Shaji"</span>,</span>
@@ -309,7 +281,7 @@ const App = () => {
                     {'}'};
                   </p>
                 </div>
-              </motion.div>
+              </div>
             </div>
           </motion.div>
         </section>
@@ -340,8 +312,7 @@ const App = () => {
               <motion.div
                 key={i}
                 variants={fadeUp}
-                whileHover={{ y: -8, scale: 1.02 }}
-                className="group relative p-8 rounded-3xl bg-white/[0.03] backdrop-blur-xl border border-white/10 hover:border-white/20 transition-all duration-300 hover:shadow-[0_8px_32px_rgba(0,0,0,0.2)] overflow-hidden"
+                className="group relative p-8 rounded-3xl bg-slate-900/40 border border-white/5 hover:border-white/10 transition-all hover:bg-slate-800/50 overflow-hidden"
               >
                 <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${skillGroup.color} opacity-50 group-hover:opacity-100 transition-opacity duration-300`} />
                 <div className={`absolute inset-0 bg-gradient-to-br ${skillGroup.color} opacity-0 group-hover:opacity-[0.03] transition-opacity duration-300`} />
@@ -394,8 +365,8 @@ const App = () => {
               <motion.div
                 key={i}
                 variants={fadeUp}
-                whileHover={{ y: -12, scale: 1.02 }}
-                className="group flex flex-col h-full bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden hover:border-indigo-500/30 hover:shadow-[0_8px_32px_rgba(99,102,241,0.2)] transition-all duration-500 relative"
+                whileHover={{ y: -8 }}
+                className="flex flex-col h-full bg-slate-900/60 border border-white/10 rounded-2xl overflow-hidden hover:border-indigo-500/50 hover:shadow-[0_8px_30px_rgba(99,102,241,0.15)] transition-all duration-300"
               >
                 <div className="absolute inset-x-0 -top-24 h-24 bg-gradient-to-b from-indigo-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-2xl z-0" />
                 <div className="p-8 flex-1 flex flex-col relative z-10">
@@ -404,9 +375,9 @@ const App = () => {
 
                   <div className="flex flex-wrap gap-2 mt-auto">
                     {project.tags.map(tag => (
-                      <span key={tag} className="px-3 py-1 text-xs font-medium text-indigo-300 bg-indigo-500/10 rounded-full border border-indigo-500/20 backdrop-blur-md">
+                      <span key={tag} className="px-3 py-1 text-xs font-medium text-indigo-300 bg-indigo-500/10 rounded-full border border-indigo-500/20">
                         {tag}
-                      </span>
+                      </motion.span>
                     ))}
                   </div>
                 </div>
@@ -422,7 +393,7 @@ const App = () => {
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={fadeUp}
-            className="relative p-12 text-center md:p-20 overflow-hidden bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-[3rem] shadow-[0_8px_32px_rgba(0,0,0,0.2)]"
+            className="relative p-12 text-center md:p-20 overflow-hidden bg-gradient-to-b from-indigo-900/20 to-slate-900/40 border border-white/10 rounded-[3rem]"
           >
             <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
             <div className="absolute inset-0 bg-gradient-to-b from-indigo-500/10 to-transparent" />
@@ -433,23 +404,21 @@ const App = () => {
               </p>
 
               <div className="flex flex-col justify-center gap-4 pt-4 sm:flex-row">
-                <a
+                <motion.a
                   href="mailto:jestinshaji777@gmail.com"
-                  className="group relative inline-flex items-center justify-center px-8 py-4 font-semibold text-slate-900 bg-white rounded-full hover:bg-slate-100 transition-all duration-300 gap-2 overflow-hidden shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.5)]"
+                  className="inline-flex items-center justify-center px-8 py-4 font-semibold text-slate-900 bg-white rounded-full hover:bg-slate-200 transition-colors gap-2"
                 >
-                  <span className="relative z-10 flex items-center gap-2">
-                    <Mail className="w-5 h-5 transition-transform group-hover:scale-110" /> Say Hello
-                  </span>
+                  <Mail className="w-5 h-5" /> Say Hello
                 </a>
               </div>
 
               <div className="flex items-center justify-center pt-8 space-x-6 text-slate-400">
-                <a href="https://github.com/jestin-16" target="_blank" rel="noreferrer" className="p-4 transition-all duration-300 border rounded-full border-white/10 bg-white/5 backdrop-blur-md hover:text-white hover:border-white/30 hover:bg-white/10 hover:shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:-translate-y-1">
+                <a href="https://github.com/jestin-16" target="_blank" rel="noreferrer" className="p-3 transition-colors border rounded-full border-slate-700 bg-slate-800/50 hover:text-white hover:border-white/30 hover:bg-slate-700">
                   <Github className="w-6 h-6" />
                 </a>
-                <a href="https://www.linkedin.com/in/jestin-shaji" target="_blank" rel="noreferrer" className="p-4 transition-all duration-300 border rounded-full border-white/10 bg-white/5 backdrop-blur-md hover:text-white hover:border-white/30 hover:bg-white/10 hover:shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:-translate-y-1">
+                <a href="https://www.linkedin.com/in/jestin-shaji" target="_blank" rel="noreferrer" className="p-3 transition-colors border rounded-full border-slate-700 bg-slate-800/50 hover:text-white hover:border-white/30 hover:bg-slate-700">
                   <Linkedin className="w-6 h-6" />
-                </a>
+                </motion.a>
               </div>
             </div>
           </motion.div>
@@ -459,7 +428,7 @@ const App = () => {
       <footer className="py-8 text-center border-t text-slate-500 border-white/5 bg-slate-950">
         <p>© {new Date().getFullYear()} Jestin Shaji. Designed with Purpose.</p>
       </footer>
-    </div>
+    </motion.div>
   );
 };
 
