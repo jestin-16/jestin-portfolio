@@ -65,8 +65,8 @@ const Background3D = () => {
       
       <Canvas
         camera={{ position: [0, 0, 5], fov: 45 }}
-        gl={{ antialias: true, alpha: true }}
-        dpr={[1, 2]} // Performance scaling
+        gl={{ antialias: false, alpha: true, powerPreference: "high-performance" }}
+        dpr={[1, 1.5]} // Performance scaling
         className="absolute inset-0 z-0"
       >
         <ambientLight intensity={0.5} />

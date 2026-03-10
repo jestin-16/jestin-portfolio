@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ReactLenis } from '@studio-freight/react-lenis';
-
+import ParticleLoader from './components/ParticleLoader';
 import Background3D from './components/Background3D';
 import Hero3DObject from './components/Hero3DObject';
 import { Canvas } from '@react-three/fiber';
@@ -94,40 +94,54 @@ const staggerContainer = {
 const App = () => {
   const [activeSection, setActiveSection] = useState('home');
   const [scrolled, setScrolled] = useState(false);
+  const [isAppLoaded, setIsAppLoaded] = useState(false);
   const containerRef = useRef(null);
 
-  // Initialize GSAP Scroll triggers for cinematic entrances
+  // Initialize GSAP Scroll triggers for cinematic entrances and Hero timeline
   useGSAP(() => {
-    // Hero Animations
-    const tl = gsap.timeline({ defaults: { ease: 'power4.out', duration: 1.5 }});
-    tl.to('.hero-badge', { y: 0, opacity: 1, duration: 1 }, 0.2)
-      .to('.hero-title-part', { y: 0, opacity: 1, stagger: 0.15 }, 0.4)
-      .to('.hero-desc', { y: 0, opacity: 1 }, 0.8)
-      .to('.hero-buttons', { y: 0, opacity: 1 }, 1);
+    if (!isAppLoaded) return; // Wait for the loader to finish
 
-    // Section Scroll Animations
+    // Master Cinematic Entrance Timeline
+    const tl = gsap.timeline({ defaults: { ease: 'power4.out', duration: 1.5 }});
+    
+    // 1. Background meshes fade in first to establish depth
+    tl.fromTo('.background-layer', { opacity: 0 }, { opacity: 1, duration: 2 }, 0)
+    
+    // 2. Navigation fades down
+    .fromTo('header', { y: -100, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2 }, 0.5)
+    
+    // 3. 3D Object smoothly scales/rotates in
+    .fromTo('.hero-3d-wrapper', { scale: 0.8, opacity: 0, rotationY: 45 }, { scale: 1, opacity: 1, rotationY: 0, duration: 2 }, 0.5)
+
+    // 4. Staggered text reveal
+    .fromTo('.hero-badge', { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 1 }, 1)
+    .fromTo('.hero-title-part', { y: '100%', opacity: 0 }, { y: '0%', opacity: 1, stagger: 0.15 }, 1.2)
+    .fromTo('.hero-desc', { y: 30, opacity: 0 }, { y: 0, opacity: 1 }, 1.6)
+    .fromTo('.hero-buttons', { y: 30, opacity: 0 }, { y: 0, opacity: 1 }, 1.8);
+
+    // Section Scroll Parallax Animations
     const sections = gsap.utils.toArray('section:not(#home)');
     sections.forEach((section) => {
-      // Create a parallax effect for section content
-      
+      // Create a parallax effect for section containers to simulate depth (Layer 3 & 4 Z-Space)
       gsap.fromTo(section, 
-        { autoAlpha: 0, y: 100 },
+        { autoAlpha: 0, y: 120, scale: 0.95 },
         {
           autoAlpha: 1,
           y: 0,
-          duration: 1.2,
+          scale: 1,
+          duration: 1.4,
           ease: 'power3.out',
           scrollTrigger: {
             trigger: section,
-            start: 'top 80%',
-            end: 'top 20%',
+            start: 'top 85%',
+            end: 'top 30%',
             toggleActions: 'play none none reverse'
           }
         }
       );
     });
 
-  }, { scope: containerRef });
+  }, { scope: containerRef, dependencies: [isAppLoaded] });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -176,16 +190,89 @@ const App = () => {
     </li>
   );
 
+  // Magnetic Button Logic
+  const magneticX = useMotionValue(0);
+  const magneticY = useMotionValue(0);
+  const springConfig = { damping: 15, stiffness: 150, mass: 0.1 };
+  const springX = useSpring(magneticX, springConfig);
+  const springY = useSpring(magneticY, springConfig);
+
+  const handleMagneticMove = (e) => {
+    const { clientX, clientY } = e;
+    const { height, width, left, top } = e.currentTarget.getBoundingClientRect();
+    const middleX = clientX - (left + width / 2);
+    const middleY = clientY - (top + height / 2);
+    magneticX.set(middleX * 0.3);
+    magneticY.set(middleY * 0.3);
+  };
+
+  const handleMagneticLeave = () => {
+    magneticX.set(0);
+    magneticY.set(0);
+  };
+
+  // 3D Card Tilt Component
+  const TiltCard = ({ children, className }) => {
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+
+    const mouseXSpring = useSpring(x);
+    const mouseYSpring = useSpring(y);
+
+    const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["7deg", "-7deg"]);
+    const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-7deg", "7deg"]);
+
+    const handleMouseMove = (e) => {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const width = rect.width;
+      const height = rect.height;
+      const mouseX = e.clientX - rect.left;
+      const mouseY = e.clientY - rect.top;
+      const xPct = mouseX / width - 0.5;
+      const yPct = mouseY / height - 0.5;
+      x.set(xPct);
+      y.set(yPct);
+    };
+
+    const handleMouseLeave = () => {
+      x.set(0);
+      y.set(0);
+    };
+
+    return (
+      <motion.div
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+        className={className}
+      >
+        {children}
+      </motion.div>
+    );
+  };
+
+  const handleLoadingComplete = () => {
+    // Add a slight delay to allow the GSAP particle timeline to cleanly finish returning before unmounting
+    setTimeout(() => {
+        setIsAppLoaded(true);
+    }, 400); // the particle timeline holds for 500ms at the end
+  };
+
   return (
     <ReactLenis root options={{ lerp: 0.05, smoothWheel: true }}>
       <div ref={containerRef} className="min-h-screen font-sans bg-brand-dark text-slate-200 selection:bg-brand-primary/30 relative overflow-hidden">
         
+        {/* Loading Overlay */}
+        {!isAppLoaded && <ParticleLoader onLoadingComplete={handleLoadingComplete} />}
+
         {/* Cinematic Layer 1 & 2: 3D Background System */}
-        <Background3D />
+        <div className="background-layer opacity-0">
+          <Background3D />
+        </div>
 
       {/* Navigation */}
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'py-4' : 'py-6'
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 opacity-0 ${scrolled ? 'py-4' : 'py-6'
           }`}
       >
         <div className="px-6 mx-auto max-w-7xl">
@@ -220,51 +307,56 @@ const App = () => {
           
           {/* Text Content */}
           <div className="relative z-20 max-w-3xl space-y-8 flex-1">
-            <div className="hero-badge translate-y-8 opacity-0 inline-block px-6 py-2 rounded-full border border-brand-primary/30 bg-brand-primary/10 backdrop-blur-md text-brand-light font-semibold tracking-wide shadow-[0_0_20px_rgba(139,92,246,0.2)] animate-pulse-slow">
+            <div className="hero-badge opacity-0 inline-block px-6 py-2 rounded-full border border-brand-primary/30 bg-brand-primary/10 backdrop-blur-md text-brand-light font-semibold tracking-wide shadow-[0_0_20px_rgba(139,92,246,0.2)] animate-pulse-slow">
               ✨ MCA Student & Creative Developer
             </div>
 
             <h1 className="text-6xl sm:text-7xl lg:text-8xl font-black tracking-tighter text-white leading-[1.1]">
               <div className="overflow-hidden">
-                <span className="hero-title-part translate-y-full opacity-0 inline-block">Crafting</span>
+                <span className="hero-title-part opacity-0 inline-block">Crafting</span>
               </div>
               <div className="overflow-hidden">
-                <span className="hero-title-part translate-y-full opacity-0 inline-block text-gradient pr-4">Cinematic</span>
+                <span className="hero-title-part opacity-0 inline-block text-gradient pr-4">Cinematic</span>
               </div>
               <div className="overflow-hidden">
-                <span className="hero-title-part translate-y-full opacity-0 inline-block">Experiences.</span>
+                <span className="hero-title-part opacity-0 inline-block">Experiences.</span>
               </div>
             </h1>
 
-            <p className="hero-desc translate-y-8 opacity-0 max-w-xl text-xl leading-relaxed text-slate-300 font-light">
+            <p className="hero-desc opacity-0 max-w-xl text-xl leading-relaxed text-slate-300 font-light">
               I'm Jestin. I turn complex problems into elegant, robust web solutions.
               Focused on full‑stack development and <span className="text-white font-medium">high-end WebGL UI/UX</span>.
             </p>
 
-            <div className="hero-buttons translate-y-8 opacity-0 flex flex-col sm:flex-row gap-6 pt-6">
-              <button
+            <div className="hero-buttons opacity-0 flex flex-col sm:flex-row gap-6 pt-6">
+              <motion.button
+                onMouseMove={handleMagneticMove}
+                onMouseLeave={handleMagneticLeave}
+                style={{ x: springX, y: springY }}
                 onClick={() => scrollToSection('projects')}
-                className="group relative inline-flex items-center justify-center gap-2 px-10 py-5 font-bold text-white transition-all rounded-full bg-gradient-to-r from-brand-primary to-brand-accent hover:from-brand-accent hover:to-brand-primary shadow-[0_0_30px_rgba(139,92,246,0.4)] hover:shadow-[0_0_50px_rgba(139,92,246,0.6)] animate-glow overflow-hidden"
+                className="group relative inline-flex items-center justify-center gap-2 px-10 py-5 font-bold text-white transition-all rounded-full bg-gradient-to-r from-brand-primary to-brand-accent hover:from-brand-accent hover:to-brand-primary shadow-[0_0_30px_rgba(139,92,246,0.4)] hover:shadow-[0_0_50px_rgba(139,92,246,0.6)] animate-glow overflow-visible z-50"
               >
                 <span className="relative z-10 flex items-center gap-2">
                   View My Work
                   <ChevronRight className="w-5 h-5 transition-transform group-hover:translate-x-2" />
                 </span>
-                <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover:translate-x-full transition-transform duration-500 ease-in-out" />
-              </button>
+                <div className="absolute inset-0 bg-white/20 rounded-full scale-0 group-hover:scale-100 transition-transform duration-500 ease-in-out origin-center" />
+              </motion.button>
             </div>
           </div>
 
           {/* 3D Visual focal point */}
-          <div className="absolute right-[-10%] top-1/2 -translate-y-1/2 w-[800px] h-[800px] z-10 pointer-events-none hidden lg:block">
-            <Canvas camera={{ position: [0, 0, 5], fov: 45 }} gl={{ alpha: true }}>
-              <ambientLight intensity={1} />
-              <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={2} />
-              <Hero3DObject />
-              <Environment preset="city">
-                <Lightformer form="rect" intensity={4} position={[-5, 5, -5]} scale={[10, 10, 1]} target={[0, 0, 0]} />
-              </Environment>
-            </Canvas>
+          <div className="hero-3d-wrapper absolute right-[-10%] top-1/2 -translate-y-1/2 w-[800px] h-[800px] z-10 pointer-events-none hidden lg:block opacity-0">
+            {isAppLoaded && (
+              <Canvas camera={{ position: [0, 0, 5], fov: 45 }} gl={{ alpha: true }}>
+                <ambientLight intensity={1} />
+                <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={2} />
+                <Hero3DObject />
+                <Environment preset="city">
+                  <Lightformer form="rect" intensity={4} position={[-5, 5, -5]} scale={[10, 10, 1]} target={[0, 0, 0]} />
+                </Environment>
+              </Canvas>
+            )}
           </div>
         </section>
 
@@ -394,14 +486,18 @@ const App = () => {
             className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
           >
             {PROJECTS.map((project, i) => (
-              <motion.div
+              <TiltCard
                 key={i}
-                variants={fadeUp}
-                whileHover={{ y: -8, scale: 1.02 }}
-                className="group flex flex-col h-full glass-panel rounded-2xl overflow-hidden hover:border-brand-primary/50 shadow-[0_8px_32px_rgba(0,0,0,0.3)] hover:shadow-[0_15px_50px_rgba(139,92,246,0.2)] transition-all duration-500"
+                className="group flex flex-col h-full glass-panel rounded-2xl hover:border-brand-primary/50 shadow-[0_8px_32px_rgba(0,0,0,0.3)] hover:shadow-[0_15px_50px_rgba(139,92,246,0.2)] transition-colors duration-500 relative"
               >
+                <div 
+                  className="absolute inset-0 rounded-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{
+                    background: 'radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(139, 92, 246, 0.15) 0%, transparent 80%)'
+                  }}
+                />
                 <div className="absolute inset-x-0 -top-24 h-24 bg-gradient-to-b from-brand-primary/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-2xl z-0" />
-                <div className="p-8 flex-1 flex flex-col relative z-10">
+                <div className="p-8 flex-1 flex flex-col relative z-10 drop-shadow-[0_4px_10px_rgba(0,0,0,0.5)]" style={{ transform: "translateZ(30px)" }}>
                   <h4 className="mb-4 text-2xl font-bold text-white group-hover:text-brand-light transition-colors duration-300">{project.title}</h4>
                   <p className="flex-1 text-slate-400 font-light leading-relaxed mb-6 group-hover:text-slate-300 transition-colors duration-300">{project.desc}</p>
 
@@ -413,7 +509,7 @@ const App = () => {
                     ))}
                   </div>
                 </div>
-              </motion.div>
+              </TiltCard>
             ))}
           </motion.div>
         </section>
