@@ -16,19 +16,19 @@ const SKILLS = [
     category: "Frontend",
     icon: Layout,
     items: ["HTML", "CSS", "JavaScript", "React", "Tailwind CSS"],
-    color: "from-blue-400 to-cyan-400"
+    color: "from-brand-primary to-brand-secondary"
   },
   {
     category: "Backend",
     icon: Database,
     items: ["Node.js", "Express.js", "Supabase", "SQL", "REST APIs"],
-    color: "from-purple-400 to-pink-400"
+    color: "from-brand-secondary to-brand-accent"
   },
   {
     category: "Tools & Others",
     icon: Terminal,
     items: ["Python", "Java", "Git/GitHub", "VS Code", "PostgreSQL"],
-    color: "from-emerald-400 to-teal-400"
+    color: "from-brand-accent to-brand-primary"
   },
 ];
 
@@ -123,7 +123,7 @@ const App = () => {
       {activeSection === id && (
         <motion.div
           layoutId="activeTab"
-          className="absolute inset-0 z-[-1] rounded-full bg-indigo-500/20 border border-indigo-500/30"
+          className="absolute inset-0 z-[-1] rounded-full bg-brand-primary/20 border border-brand-primary/30 shadow-[0_0_15px_rgba(139,92,246,0.3)]"
           transition={{ type: "spring", stiffness: 320, damping: 26 }}
         />
       )}
@@ -131,11 +131,15 @@ const App = () => {
   );
 
   return (
-    <div className="min-h-screen font-sans bg-slate-950 text-slate-200 selection:bg-indigo-500/30">
-      {/* Background Orbs */}
+    <div className="min-h-screen font-sans bg-brand-dark text-slate-200 selection:bg-brand-primary/30 relative overflow-hidden">
+      {/* Global Noise Texture */}
+      <div className="fixed inset-0 z-50 pointer-events-none bg-noise"></div>
+
+      {/* Futuristic Background Orbs */}
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-indigo-600/10 blur-[120px]" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-cyan-600/10 blur-[120px]" />
+        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-brand-primary/20 blur-[120px] mix-blend-screen animate-blob" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-brand-secondary/20 blur-[120px] mix-blend-screen animate-blob" style={{ animationDelay: '2s' }} />
+        <div className="absolute top-[40%] left-[40%] w-[30%] h-[30%] rounded-full bg-brand-accent/20 blur-[120px] mix-blend-screen animate-blob" style={{ animationDelay: '4s' }} />
       </div>
 
       {/* Navigation */}
@@ -149,12 +153,12 @@ const App = () => {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className={`flex items-center justify-between mx-auto transition-all duration-500 rounded-full px-6 py-3 ${scrolled
-              ? 'bg-white/[0.03] backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.2)] max-w-4xl'
+              ? 'glass-panel max-w-4xl'
               : 'bg-transparent max-w-7xl'
               }`}
           >
-            <div className="text-xl font-bold tracking-tight text-white">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">
+            <div className="text-2xl font-black tracking-tighter text-white">
+              <span className="text-gradient">
                 Jestin
               </span>
               .dev
@@ -173,30 +177,42 @@ const App = () => {
       <main className="relative z-10 px-4 mx-auto max-w-7xl">
         {/* Hero Section */}
         <section id="home" className="flex items-center justify-center min-h-screen pt-20 text-center">
-          <div className="max-w-3xl space-y-8">
+          <div className="relative max-w-5xl mx-auto space-y-10 z-10">
+            {/* 3D Floating Elements around the Hero */}
+            <motion.div 
+              className="absolute -top-10 -left-10 md:-left-20 w-32 h-32 rounded-2xl glass-panel hidden md:flex items-center justify-center animate-float transform rotate-12 bg-gradient-to-br from-brand-primary/20 to-transparent"
+            >
+              <Code2 className="w-12 h-12 text-brand-light drop-shadow-[0_0_15px_rgba(139,92,246,0.8)]" />
+            </motion.div>
+            <motion.div 
+              className="absolute top-40 -right-10 md:-right-20 w-40 h-40 rounded-full glass-panel hidden md:flex items-center justify-center animate-float-delayed transform -rotate-12 bg-gradient-to-tl from-brand-secondary/20 to-transparent"
+            >
+              <Database className="w-16 h-16 text-brand-light drop-shadow-[0_0_15px_rgba(59,130,246,0.8)]" />
+            </motion.div>
+
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="inline-block px-6 py-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 backdrop-blur-md text-indigo-300 text-sm font-semibold tracking-wide mb-6 shadow-[0_0_15px_rgba(99,102,241,0.2)]"
+              className="inline-block px-8 py-2.5 rounded-full border border-brand-primary/30 bg-brand-primary/10 backdrop-blur-md text-brand-light font-semibold tracking-wide mb-6 shadow-[0_0_20px_rgba(139,92,246,0.2)] animate-pulse-slow"
             >
-              ✨ MCA Student & Aspirant
+              ✨ MCA Student & Creative Developer
             </motion.div>
 
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="text-5xl font-extrabold tracking-tight text-white md:text-7xl lg:text-8xl"
+              className="text-6xl font-black tracking-tighter text-white md:text-8xl lg:text-9xl leading-tight"
             >
               Hi, I'm{' '}
               <span className="relative inline-block">
-                <span className="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-cyan-400 to-emerald-400">
+                <span className="relative z-10 text-gradient">
                   Jestin
                 </span>
                 <motion.span
-                  className="absolute inset-0 z-0 bg-gradient-to-r from-indigo-400 via-cyan-400 to-emerald-400 blur-2xl flex"
-                  animate={{ opacity: [0.2, 0.5, 0.2] }}
+                  className="absolute inset-0 z-0 bg-gradient-to-r from-brand-primary via-brand-secondary to-brand-accent blur-3xl flex"
+                  animate={{ opacity: [0.3, 0.7, 0.3] }}
                   transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                 />
               </span>
@@ -206,28 +222,36 @@ const App = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="max-w-2xl mx-auto text-lg leading-relaxed text-slate-400 md:text-xl"
+              className="max-w-2xl mx-auto text-xl leading-relaxed text-slate-300 md:text-2xl font-light"
             >
               I turn complex problems into elegant, robust web solutions.
-              Focused on full‑stack development, database architecture, and automation.
+              Focused on full‑stack development, database architecture, and <span className="text-white font-medium">futuristic UI/UX</span>.
             </motion.p>
 
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-col justify-center gap-6 pt-8 sm:flex-row"
+              className="flex flex-col justify-center gap-6 pt-10 sm:flex-row"
             >
               <button
                 onClick={() => scrollToSection('projects')}
-                className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 font-semibold text-white transition-all rounded-full bg-indigo-600 hover:bg-indigo-500 hover:shadow-[0_0_20px_rgba(99,102,241,0.4)]"
+                className="group relative inline-flex items-center justify-center gap-2 px-10 py-5 font-bold text-white transition-all rounded-full bg-gradient-to-r from-brand-primary to-brand-accent hover:from-brand-accent hover:to-brand-primary shadow-[0_0_30px_rgba(139,92,246,0.4)] hover:shadow-[0_0_50px_rgba(139,92,246,0.6)] animate-glow overflow-hidden"
               >
-                View My Work
-                <ChevronRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                <span className="relative z-10 flex items-center gap-2">
+                  View My Work
+                  <ChevronRight className="w-5 h-5 transition-transform group-hover:translate-x-2" />
+                </span>
+                <motion.div
+                  className="absolute inset-0 bg-white/20"
+                  initial={{ x: "-100%" }}
+                  whileHover={{ x: "100%" }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                />
               </button>
               <button
                 onClick={() => scrollToSection('contact')}
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 font-semibold transition-all border rounded-full text-slate-300 border-slate-700 bg-slate-900/50 hover:bg-slate-800 hover:text-white"
+                className="inline-flex items-center justify-center gap-2 px-10 py-5 font-bold transition-all rounded-full text-brand-light glass-panel hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]"
               >
                 Contact Me
               </button>
@@ -236,23 +260,23 @@ const App = () => {
         </section>
 
         {/* About Section */}
-        <section id="about" className="py-24">
+        <section id="about" className="py-24 relative z-10">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={fadeUp}
-            className="relative p-8 md:p-12 bg-white/[0.03] border border-white/10 rounded-[2.5rem] backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.2)] overflow-hidden"
+            className="relative p-8 md:p-12 glass-panel rounded-[2.5rem] overflow-hidden group"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-transparent to-cyan-500/5" />
+            <div className="absolute inset-0 bg-gradient-to-br from-brand-primary/10 via-brand-dark/50 to-brand-secondary/10 opacity-50 group-hover:opacity-100 transition-opacity duration-700" />
             <div className="relative z-10 grid items-center gap-12 md:grid-cols-2">
               <div className="space-y-6">
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-secondary/10 border border-brand-secondary/20 text-brand-secondary">
                   <Code2 className="w-5 h-5" />
                   <span className="text-sm font-semibold tracking-wider uppercase">About Me</span>
                 </div>
-                <h3 className="text-3xl font-bold text-white md:text-4xl">Building Software with Purpose</h3>
-                <div className="space-y-4 text-lg text-slate-400">
+                <h3 className="text-3xl font-bold text-white md:text-4xl">Building Software with <span className="text-gradient">Purpose</span></h3>
+                <div className="space-y-4 text-lg text-slate-400 font-light">
                   <p>
                     Currently pursuing my Master of Computer Applications (MCA) in Kerala, I am deeply passionate about
                     system design and scalable engineering solutions.
@@ -263,17 +287,17 @@ const App = () => {
                 </div>
               </div>
               <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/20 to-cyan-500/20 rounded-2xl blur-2xl" />
-                <div className="relative aspect-square md:aspect-[4/3] rounded-2xl border border-white/10 bg-slate-900/50 p-6 flex flex-col justify-center items-center text-center">
-                  <Terminal className="w-16 h-16 mb-4 text-indigo-400" />
+                <div className="absolute inset-0 bg-gradient-to-tr from-brand-primary/30 to-brand-secondary/30 rounded-2xl blur-3xl group-hover:blur-2xl transition-all duration-700 opacity-50" />
+                <div className="relative aspect-square md:aspect-[4/3] rounded-2xl border border-white/5 bg-brand-dark/80 p-6 flex flex-col justify-center items-center text-center shadow-[0_0_30px_rgba(0,0,0,0.5)] transform group-hover:scale-[1.02] transition-transform duration-500">
+                  <Terminal className="w-16 h-16 mb-4 text-brand-primary drop-shadow-[0_0_15px_rgba(139,92,246,0.5)]" />
                   <p className="text-sm font-mono text-slate-400">
-                    <span className="text-pink-400">const</span> <span className="text-blue-400">developer</span> = {'{'}
+                    <span className="text-pink-500">const</span> <span className="text-brand-secondary">developer</span> = {'{'}
                     <br />
-                    <span className="ml-4">name: <span className="text-green-400">"Jestin Shaji"</span>,</span>
+                    <span className="ml-4">name: <span className="text-emerald-400">"Jestin Shaji"</span>,</span>
                     <br />
-                    <span className="ml-4">location: <span className="text-green-400">"Kerala, India"</span>,</span>
+                    <span className="ml-4">location: <span className="text-emerald-400">"Kerala, India"</span>,</span>
                     <br />
-                    <span className="ml-4">passion: <span className="text-green-400">"Full-Stack Web"</span></span>
+                    <span className="ml-4">passion: <span className="text-emerald-400">"Full-Stack Web"</span></span>
                     <br />
                     {'}'};
                   </p>
@@ -284,7 +308,7 @@ const App = () => {
         </section>
 
         {/* Skills Section */}
-        <section id="skills" className="py-24">
+        <section id="skills" className="py-24 relative z-10">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -292,10 +316,10 @@ const App = () => {
             variants={fadeUp}
             className="flex flex-col items-center mb-16 space-y-4 text-center"
           >
-            <div className="inline-block px-4 py-1.5 rounded-full border border-teal-500/30 bg-teal-500/10 text-teal-300 text-sm font-medium">
+            <div className="inline-block px-4 py-1.5 rounded-full border border-brand-accent/30 bg-brand-accent/10 text-brand-light text-sm font-medium shadow-[0_0_15px_rgba(99,102,241,0.2)]">
               Technical Arsenal
             </div>
-            <h3 className="text-4xl font-bold text-white md:text-5xl">My Expertise</h3>
+            <h3 className="text-4xl font-bold text-white md:text-5xl">My <span className="text-gradient">Expertise</span></h3>
           </motion.div>
 
           <motion.div
@@ -309,23 +333,23 @@ const App = () => {
               <motion.div
                 key={i}
                 variants={fadeUp}
-                className="group relative p-8 rounded-3xl bg-slate-900/40 border border-white/5 hover:border-white/10 transition-all hover:bg-slate-800/50 overflow-hidden"
+                className="group relative p-8 rounded-3xl glass-panel hover:bg-white/[0.04] transition-all duration-500 overflow-hidden transform hover:-translate-y-2 hover:shadow-[0_15px_40px_rgba(139,92,246,0.15)]"
               >
-                <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${skillGroup.color} opacity-50 group-hover:opacity-100 transition-opacity duration-300`} />
-                <div className={`absolute inset-0 bg-gradient-to-br ${skillGroup.color} opacity-0 group-hover:opacity-[0.03] transition-opacity duration-300`} />
+                <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${skillGroup.color} opacity-50 group-hover:opacity-100 transition-opacity duration-300 shadow-[0_0_10px_currentColor]`} />
+                <div className={`absolute inset-0 bg-gradient-to-br ${skillGroup.color} opacity-0 group-hover:opacity-[0.05] transition-opacity duration-500`} />
                 <div className="relative z-10">
                   <div className="flex items-center mb-6 space-x-4">
-                    <div className={`p-3 rounded-2xl bg-white/[0.05] border border-white/10 text-white shadow-lg`}>
-                      <skillGroup.icon className="w-6 h-6" />
+                    <div className={`p-3 rounded-2xl bg-brand-dark/80 border border-white/5 shadow-[0_0_15px_rgba(0,0,0,0.5)] group-hover:shadow-[0_0_15px_rgba(255,255,255,0.05)] transition-all duration-300`}>
+                      <skillGroup.icon className="w-6 h-6 text-brand-light group-hover:text-white transition-colors" />
                     </div>
-                    <h4 className="text-xl font-bold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-slate-400 transition-all duration-300">
+                    <h4 className="text-xl font-bold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-brand-light transition-all duration-300">
                       {skillGroup.category}
                     </h4>
                   </div>
                   <ul className="space-y-3">
                     {skillGroup.items.map((item, j) => (
-                      <li key={j} className="flex items-center text-slate-400 group-hover:text-slate-300 transition-colors duration-300">
-                        <ChevronRight className="w-4 h-4 mr-2 text-indigo-400/70 group-hover:text-indigo-400 transition-colors duration-300" />
+                      <li key={j} className="flex items-center text-slate-400 group-hover:text-slate-200 transition-colors duration-300 font-light">
+                        <ChevronRight className="w-4 h-4 mr-2 text-brand-primary/50 group-hover:text-brand-primary transition-colors duration-300" />
                         {item}
                       </li>
                     ))}
@@ -337,7 +361,7 @@ const App = () => {
         </section>
 
         {/* Projects Section */}
-        <section id="projects" className="py-24">
+        <section id="projects" className="py-24 relative z-10">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -345,10 +369,10 @@ const App = () => {
             variants={fadeUp}
             className="mb-16 space-y-4"
           >
-            <div className="inline-block px-4 py-1.5 rounded-full border border-purple-500/30 bg-purple-500/10 text-purple-300 text-sm font-medium">
+            <div className="inline-block px-4 py-1.5 rounded-full border border-brand-primary/30 bg-brand-primary/10 text-brand-light text-sm font-medium shadow-[0_0_15px_rgba(139,92,246,0.2)]">
               Recent Work
             </div>
-            <h3 className="text-4xl font-bold text-white md:text-5xl">Featured Projects</h3>
+            <h3 className="text-4xl font-bold text-white md:text-5xl">Featured <span className="text-gradient">Projects</span></h3>
           </motion.div>
 
           <motion.div
@@ -362,17 +386,17 @@ const App = () => {
               <motion.div
                 key={i}
                 variants={fadeUp}
-                whileHover={{ y: -8 }}
-                className="flex flex-col h-full bg-slate-900/60 border border-white/10 rounded-2xl overflow-hidden hover:border-indigo-500/50 hover:shadow-[0_8px_30px_rgba(99,102,241,0.15)] transition-all duration-300"
+                whileHover={{ y: -8, scale: 1.02 }}
+                className="group flex flex-col h-full glass-panel rounded-2xl overflow-hidden hover:border-brand-primary/50 shadow-[0_8px_32px_rgba(0,0,0,0.3)] hover:shadow-[0_15px_50px_rgba(139,92,246,0.2)] transition-all duration-500"
               >
-                <div className="absolute inset-x-0 -top-24 h-24 bg-gradient-to-b from-indigo-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-2xl z-0" />
+                <div className="absolute inset-x-0 -top-24 h-24 bg-gradient-to-b from-brand-primary/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-2xl z-0" />
                 <div className="p-8 flex-1 flex flex-col relative z-10">
-                  <h4 className="mb-4 text-2xl font-bold text-white group-hover:text-indigo-300 transition-colors duration-300">{project.title}</h4>
-                  <p className="flex-1 text-slate-400 leading-relaxed mb-6 group-hover:text-slate-300 transition-colors duration-300">{project.desc}</p>
+                  <h4 className="mb-4 text-2xl font-bold text-white group-hover:text-brand-light transition-colors duration-300">{project.title}</h4>
+                  <p className="flex-1 text-slate-400 font-light leading-relaxed mb-6 group-hover:text-slate-300 transition-colors duration-300">{project.desc}</p>
 
                   <div className="flex flex-wrap gap-2 mt-auto">
                     {project.tags.map(tag => (
-                      <span key={tag} className="px-3 py-1 text-xs font-medium text-indigo-300 bg-indigo-500/10 rounded-full border border-indigo-500/20">
+                      <span key={tag} className="px-3 py-1 text-xs font-semibold text-brand-light bg-brand-primary/20 rounded-full border border-brand-primary/30 shadow-[0_0_10px_rgba(139,92,246,0.2)]">
                         {tag}
                       </span>
                     ))}
@@ -384,36 +408,36 @@ const App = () => {
         </section>
 
         {/* Contact Section */}
-        <section id="contact" className="py-24 pb-32">
+        <section id="contact" className="py-24 pb-32 relative z-10">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={fadeUp}
-            className="relative p-12 text-center md:p-20 overflow-hidden bg-gradient-to-b from-indigo-900/20 to-slate-900/40 border border-white/10 rounded-[3rem]"
+            className="relative p-12 text-center md:p-20 overflow-hidden glass-panel border border-brand-primary/20 rounded-[3rem] shadow-[0_20px_50px_rgba(0,0,0,0.5)] group"
           >
-            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
-            <div className="absolute inset-0 bg-gradient-to-b from-indigo-500/10 to-transparent" />
+            <div className="absolute inset-0 bg-noise mix-blend-overlay"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-brand-primary/10 to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-700" />
             <div className="relative z-10 max-w-2xl mx-auto space-y-8">
-              <h3 className="text-4xl font-bold text-white md:text-5xl">Let's Build Something Great</h3>
-              <p className="text-xl text-slate-400">
+              <h3 className="text-4xl font-bold text-white md:text-5xl">Let's Build Something <span className="text-gradient">Great</span></h3>
+              <p className="text-xl text-slate-400 font-light">
                 I'm actively seeking internships and junior developer roles where I can contribute and grow.
               </p>
 
               <div className="flex flex-col justify-center gap-4 pt-4 sm:flex-row">
                 <a
                   href="mailto:jestinshaji777@gmail.com"
-                  className="inline-flex items-center justify-center px-8 py-4 font-semibold text-slate-900 bg-white rounded-full hover:bg-slate-200 transition-colors gap-2"
+                  className="inline-flex items-center justify-center px-10 py-5 font-bold text-brand-dark bg-brand-light rounded-full hover:bg-white hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] transition-all gap-2 transform hover:-translate-y-1"
                 >
                   <Mail className="w-5 h-5" /> Say Hello
                 </a>
               </div>
 
               <div className="flex items-center justify-center pt-8 space-x-6 text-slate-400">
-                <a href="https://github.com/jestin-16" target="_blank" rel="noreferrer" className="p-3 transition-colors border rounded-full border-slate-700 bg-slate-800/50 hover:text-white hover:border-white/30 hover:bg-slate-700">
+                <a href="https://github.com/jestin-16" target="_blank" rel="noreferrer" className="p-3 transition-colors border rounded-full border-white/10 bg-brand-dark/50 hover:text-white hover:border-brand-primary/50 hover:bg-brand-primary/10 hover:shadow-[0_0_15px_rgba(139,92,246,0.4)]">
                   <Github className="w-6 h-6" />
                 </a>
-                <a href="https://www.linkedin.com/in/jestin-shaji" target="_blank" rel="noreferrer" className="p-3 transition-colors border rounded-full border-slate-700 bg-slate-800/50 hover:text-white hover:border-white/30 hover:bg-slate-700">
+                <a href="https://www.linkedin.com/in/jestin-shaji" target="_blank" rel="noreferrer" className="p-3 transition-colors border rounded-full border-white/10 bg-brand-dark/50 hover:text-white hover:border-brand-secondary/50 hover:bg-brand-secondary/10 hover:shadow-[0_0_15px_rgba(59,130,246,0.4)]">
                   <Linkedin className="w-6 h-6" />
                 </a>
               </div>
@@ -422,8 +446,8 @@ const App = () => {
         </section>
       </main>
 
-      <footer className="py-8 text-center border-t text-slate-500 border-white/5 bg-slate-950">
-        <p>© {new Date().getFullYear()} Jestin Shaji. Designed with Purpose.</p>
+      <footer className="py-8 text-center border-t text-slate-500 font-light border-white/5 bg-brand-dark relative z-10">
+        <p>© {new Date().getFullYear()} Jestin Shaji. <span className="text-gradient font-medium">Designed with Purpose.</span></p>
       </footer>
     </div>
   );
