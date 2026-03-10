@@ -1,5 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ReactLenis } from '@studio-freight/react-lenis';
+
+import Background3D from './components/Background3D';
+import Hero3DObject from './components/Hero3DObject';
+import { Canvas } from '@react-three/fiber';
+import { Environment, Lightformer } from '@react-three/drei';
+
+gsap.registerPlugin(ScrollTrigger);
 import {
   Code2,
   Mail,
@@ -82,6 +93,41 @@ const staggerContainer = {
 const App = () => {
   const [activeSection, setActiveSection] = useState('home');
   const [scrolled, setScrolled] = useState(false);
+  const containerRef = useRef(null);
+
+  // Initialize GSAP Scroll triggers for cinematic entrances
+  useGSAP(() => {
+    // Hero Animations
+    const tl = gsap.timeline({ defaults: { ease: 'power4.out', duration: 1.5 }});
+    tl.to('.hero-badge', { y: 0, opacity: 1, duration: 1 }, 0.2)
+      .to('.hero-title-part', { y: 0, opacity: 1, stagger: 0.15 }, 0.4)
+      .to('.hero-desc', { y: 0, opacity: 1 }, 0.8)
+      .to('.hero-buttons', { y: 0, opacity: 1 }, 1);
+
+    // Section Scroll Animations
+    const sections = gsap.utils.toArray('section:not(#home)');
+    sections.forEach((section) => {
+      // Create a parallax effect for section content
+      const content = section.querySelector('.section-content');
+      
+      gsap.fromTo(section, 
+        { autoAlpha: 0, y: 100 },
+        {
+          autoAlpha: 1,
+          y: 0,
+          duration: 1.2,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top 80%',
+            end: 'top 20%',
+            toggleActions: 'play none none reverse'
+          }
+        }
+      );
+    });
+
+  }, { scope: containerRef });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -131,16 +177,11 @@ const App = () => {
   );
 
   return (
-    <div className="min-h-screen font-sans bg-brand-dark text-slate-200 selection:bg-brand-primary/30 relative overflow-hidden">
-      {/* Global Noise Texture */}
-      <div className="fixed inset-0 z-50 pointer-events-none bg-noise"></div>
-
-      {/* Futuristic Background Orbs */}
-      <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-brand-primary/20 blur-[120px] mix-blend-screen animate-blob" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-brand-secondary/20 blur-[120px] mix-blend-screen animate-blob" style={{ animationDelay: '2s' }} />
-        <div className="absolute top-[40%] left-[40%] w-[30%] h-[30%] rounded-full bg-brand-accent/20 blur-[120px] mix-blend-screen animate-blob" style={{ animationDelay: '4s' }} />
-      </div>
+    <ReactLenis root options={{ lerp: 0.05, smoothWheel: true }}>
+      <div ref={containerRef} className="min-h-screen font-sans bg-brand-dark text-slate-200 selection:bg-brand-primary/30 relative overflow-hidden">
+        
+        {/* Cinematic Layer 1 & 2: 3D Background System */}
+        <Background3D />
 
       {/* Navigation */}
       <header
@@ -174,66 +215,33 @@ const App = () => {
         </div>
       </header>
 
-      <main className="relative z-10 px-4 mx-auto max-w-7xl">
         {/* Hero Section */}
-        <section id="home" className="flex items-center justify-center min-h-screen pt-20 text-center">
-          <div className="relative max-w-5xl mx-auto space-y-10 z-10">
-            {/* 3D Floating Elements around the Hero */}
-            <motion.div 
-              className="absolute -top-10 -left-10 md:-left-20 w-32 h-32 rounded-2xl glass-panel hidden md:flex items-center justify-center animate-float transform rotate-12 bg-gradient-to-br from-brand-primary/20 to-transparent"
-            >
-              <Code2 className="w-12 h-12 text-brand-light drop-shadow-[0_0_15px_rgba(139,92,246,0.8)]" />
-            </motion.div>
-            <motion.div 
-              className="absolute top-40 -right-10 md:-right-20 w-40 h-40 rounded-full glass-panel hidden md:flex items-center justify-center animate-float-delayed transform -rotate-12 bg-gradient-to-tl from-brand-secondary/20 to-transparent"
-            >
-              <Database className="w-16 h-16 text-brand-light drop-shadow-[0_0_15px_rgba(59,130,246,0.8)]" />
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="inline-block px-8 py-2.5 rounded-full border border-brand-primary/30 bg-brand-primary/10 backdrop-blur-md text-brand-light font-semibold tracking-wide mb-6 shadow-[0_0_20px_rgba(139,92,246,0.2)] animate-pulse-slow"
-            >
+        <section id="home" className="relative flex items-center justify-between min-h-screen pt-20 px-4 max-w-7xl mx-auto overflow-hidden">
+          
+          {/* Text Content */}
+          <div className="relative z-20 max-w-3xl space-y-8 flex-1">
+            <div className="hero-badge translate-y-8 opacity-0 inline-block px-6 py-2 rounded-full border border-brand-primary/30 bg-brand-primary/10 backdrop-blur-md text-brand-light font-semibold tracking-wide shadow-[0_0_20px_rgba(139,92,246,0.2)] animate-pulse-slow">
               ✨ MCA Student & Creative Developer
-            </motion.div>
+            </div>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="text-6xl font-black tracking-tighter text-white md:text-8xl lg:text-9xl leading-tight"
-            >
-              Hi, I'm{' '}
-              <span className="relative inline-block">
-                <span className="relative z-10 text-gradient">
-                  Jestin
-                </span>
-                <motion.span
-                  className="absolute inset-0 z-0 bg-gradient-to-r from-brand-primary via-brand-secondary to-brand-accent blur-3xl flex"
-                  animate={{ opacity: [0.3, 0.7, 0.3] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                />
-              </span>
-            </motion.h1>
+            <h1 className="text-6xl sm:text-7xl lg:text-8xl font-black tracking-tighter text-white leading-[1.1]">
+              <div className="overflow-hidden">
+                <span className="hero-title-part translate-y-full opacity-0 inline-block">Crafting</span>
+              </div>
+              <div className="overflow-hidden">
+                <span className="hero-title-part translate-y-full opacity-0 inline-block text-gradient pr-4">Cinematic</span>
+              </div>
+              <div className="overflow-hidden">
+                <span className="hero-title-part translate-y-full opacity-0 inline-block">Experiences.</span>
+              </div>
+            </h1>
 
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="max-w-2xl mx-auto text-xl leading-relaxed text-slate-300 md:text-2xl font-light"
-            >
-              I turn complex problems into elegant, robust web solutions.
-              Focused on full‑stack development, database architecture, and <span className="text-white font-medium">futuristic UI/UX</span>.
-            </motion.p>
+            <p className="hero-desc translate-y-8 opacity-0 max-w-xl text-xl leading-relaxed text-slate-300 font-light">
+              I'm Jestin. I turn complex problems into elegant, robust web solutions.
+              Focused on full‑stack development and <span className="text-white font-medium">high-end WebGL UI/UX</span>.
+            </p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-col justify-center gap-6 pt-10 sm:flex-row"
-            >
+            <div className="hero-buttons translate-y-8 opacity-0 flex flex-col sm:flex-row gap-6 pt-6">
               <button
                 onClick={() => scrollToSection('projects')}
                 className="group relative inline-flex items-center justify-center gap-2 px-10 py-5 font-bold text-white transition-all rounded-full bg-gradient-to-r from-brand-primary to-brand-accent hover:from-brand-accent hover:to-brand-primary shadow-[0_0_30px_rgba(139,92,246,0.4)] hover:shadow-[0_0_50px_rgba(139,92,246,0.6)] animate-glow overflow-hidden"
@@ -242,23 +250,26 @@ const App = () => {
                   View My Work
                   <ChevronRight className="w-5 h-5 transition-transform group-hover:translate-x-2" />
                 </span>
-                <motion.div
-                  className="absolute inset-0 bg-white/20"
-                  initial={{ x: "-100%" }}
-                  whileHover={{ x: "100%" }}
-                  transition={{ duration: 0.5, ease: "easeInOut" }}
-                />
+                <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover:translate-x-full transition-transform duration-500 ease-in-out" />
               </button>
-              <button
-                onClick={() => scrollToSection('contact')}
-                className="inline-flex items-center justify-center gap-2 px-10 py-5 font-bold transition-all rounded-full text-brand-light glass-panel hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]"
-              >
-                Contact Me
-              </button>
-            </motion.div>
+            </div>
+          </div>
+
+          {/* 3D Visual focal point */}
+          <div className="absolute right-[-10%] top-1/2 -translate-y-1/2 w-[800px] h-[800px] z-10 pointer-events-none hidden lg:block">
+            <Canvas camera={{ position: [0, 0, 5], fov: 45 }} gl={{ alpha: true }}>
+              <ambientLight intensity={1} />
+              <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={2} />
+              <Hero3DObject />
+              <Environment preset="city">
+                <Lightformer form="rect" intensity={4} position={[-5, 5, -5]} scale={[10, 10, 1]} target={[0, 0, 0]} />
+              </Environment>
+            </Canvas>
           </div>
         </section>
 
+        {/* Global wrapper for scroll sections to limit width */}
+        <div className="max-w-7xl mx-auto px-4">
         {/* About Section */}
         <section id="about" className="py-24 relative z-10">
           <motion.div
@@ -444,12 +455,9 @@ const App = () => {
             </div>
           </motion.div>
         </section>
-      </main>
-
-      <footer className="py-8 text-center border-t text-slate-500 font-light border-white/5 bg-brand-dark relative z-10">
-        <p>© {new Date().getFullYear()} Jestin Shaji. <span className="text-gradient font-medium">Designed with Purpose.</span></p>
-      </footer>
-    </div>
+        </div>
+      </div>
+    </ReactLenis>
   );
 };
 
