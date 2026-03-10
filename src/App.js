@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -109,7 +109,6 @@ const App = () => {
     const sections = gsap.utils.toArray('section:not(#home)');
     sections.forEach((section) => {
       // Create a parallax effect for section content
-      const content = section.querySelector('.section-content');
       
       gsap.fromTo(section, 
         { autoAlpha: 0, y: 100 },
