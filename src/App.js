@@ -77,10 +77,7 @@ const staggerContainer = {
   }
 };
 
-const scaleUp = {
-  hidden: { opacity: 0, scale: 0.8 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
-};
+
 
 const App = () => {
   const [activeSection, setActiveSection] = useState('home');
