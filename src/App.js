@@ -10,7 +10,6 @@ import Hero3DObject from './components/Hero3DObject';
 import { Canvas } from '@react-three/fiber';
 import { Environment, Lightformer } from '@react-three/drei';
 
-gsap.registerPlugin(ScrollTrigger);
 import {
   Code2,
   Mail,
@@ -21,6 +20,8 @@ import {
   Database,
   Terminal
 } from 'lucide-react';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const SKILLS = [
   {
