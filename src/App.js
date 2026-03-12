@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -16,17 +16,7 @@ import SkillEditor from './components/SkillEditor';
 import ProjectTerminalCard from './components/ProjectTerminalCard';
 import ContactTerminal from './components/ContactTerminal';
 
-import {
-  Code2,
-  Mail,
-  Github,
-  Linkedin,
-  ChevronRight,
-  Layout,
-  Database,
-  Terminal as TerminalIcon,
-  Copy
-} from 'lucide-react';
+import { Copy } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
