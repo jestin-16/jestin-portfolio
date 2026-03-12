@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ReactLenis } from '@studio-freight/react-lenis';
+import { Canvas } from '@react-three/fiber';
 import SpringbootLoader from './components/SpringbootLoader';
 import BackgroundSystem from './components/BackgroundSystem';
 import VSCodeTabs from './components/VSCodeTabs';
