@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Github, Linkedin, Send } from 'lucide-react';
+import { Mail, Github, Linkedin } from 'lucide-react';
 
 const ContactTerminal = () => {
   return (
@@ -38,7 +38,7 @@ const ContactTerminal = () => {
               <div className="p-4 bg-brand-void/50 rounded border border-white/5 text-xs">
                 <div className="text-brand-danger">POST <span className="text-slate-300">/contact HTTP/1.1</span></div>
                 <div className="text-brand-warning">To: <span className="text-brand-secondary">jestinshaji777@gmail.com</span></div>
-                <div className="text-slate-500 mt-2">// Body content...</div>
+                <div className="text-slate-500 mt-2">{"// Body content..."}</div>
               </div>
             </div>
             

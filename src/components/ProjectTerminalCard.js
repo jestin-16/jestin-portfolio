@@ -55,7 +55,7 @@ const ProjectTerminalCard = ({ project }) => {
         </h4>
         
         <div className="text-slate-400 text-xs leading-relaxed mb-6 flex-1 italic">
-          /* {project.desc} */
+          {"/* "}{project.desc}{" */"}
         </div>
 
         <div className="flex flex-wrap gap-2 mb-6">

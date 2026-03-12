@@ -108,19 +108,7 @@ const scrollToSection = (id) => {
   }
 };
 
-// Advanced Animation variants
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
-};
-
-const staggerContainer = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1 }
-  }
-};
+// Advanced Animation variants (Add these back if needed for specific entrance animations)
 
 
 
@@ -218,26 +206,6 @@ const App = () => {
     return () => observer.disconnect();
   }, []);
 
-  const NavLink = ({ id, label }) => (
-    <li className="relative">
-      <motion.button
-        onClick={() => scrollToSection(id)}
-        whileHover={{ y: -2 }}
-        whileTap={{ scale: 0.96 }}
-        className={`px-4 py-2 text-sm font-medium transition-colors ${activeSection === id ? 'text-white' : 'text-slate-400 hover:text-white'
-          }`}
-      >
-        {label}
-      </motion.button>
-      {activeSection === id && (
-        <motion.div
-          layoutId="activeTab"
-          className="absolute inset-0 z-[-1] rounded-full bg-brand-primary/20 border border-brand-primary/30 shadow-[0_0_15px_rgba(139,92,246,0.3)]"
-          transition={{ type: "spring", stiffness: 320, damping: 26 }}
-        />
-      )}
-    </li>
-  );
 
   // Magnetic Button Logic
   const magneticX = useMotionValue(0);
@@ -260,45 +228,6 @@ const App = () => {
     magneticY.set(0);
   };
 
-  // 3D Card Tilt Component
-  const TiltCard = ({ children, className }) => {
-    const x = useMotionValue(0);
-    const y = useMotionValue(0);
-
-    const mouseXSpring = useSpring(x);
-    const mouseYSpring = useSpring(y);
-
-    const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["7deg", "-7deg"]);
-    const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-7deg", "7deg"]);
-
-    const handleMouseMove = (e) => {
-      const rect = e.currentTarget.getBoundingClientRect();
-      const width = rect.width;
-      const height = rect.height;
-      const mouseX = e.clientX - rect.left;
-      const mouseY = e.clientY - rect.top;
-      const xPct = mouseX / width - 0.5;
-      const yPct = mouseY / height - 0.5;
-      x.set(xPct);
-      y.set(yPct);
-    };
-
-    const handleMouseLeave = () => {
-      x.set(0);
-      y.set(0);
-    };
-
-    return (
-      <motion.div
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-        className={className}
-      >
-        {children}
-      </motion.div>
-    );
-  };
 
   const handleLoadingComplete = () => {
     // Add a slight delay to allow the GSAP particle timeline to cleanly finish returning before unmounting
@@ -372,7 +301,7 @@ const App = () => {
                 </div>
                 <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight">
                   Backend Engineer.<br />
-                  <span className="italic text-brand-primary text-4xl md:text-5xl opacity-80">// Building systems</span><br />
+                  <span className="italic text-brand-primary text-4xl md:text-5xl opacity-80">{"// Building systems"}</span><br />
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-warning to-brand-danger">that scale.</span>
                 </h1>
               </div>
@@ -388,7 +317,6 @@ const App = () => {
                   style={{ x: springX, y: springY }}
                   onClick={() => {
                     navigator.clipboard.writeText("git clone https://github.com/jestin-16/portfolio.git");
-                    // Could add a "Copied!" toast here
                   }}
                   className="group relative flex items-center justify-center space-x-3 bg-brand-primary text-brand-void px-8 py-4 rounded font-mono font-bold hover:shadow-[0_0_20px_rgba(0,255,136,0.5)] transition-all"
                 >
