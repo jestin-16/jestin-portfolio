@@ -33,7 +33,6 @@ const Node = ({ position, label, color = "#00ff88" }) => {
           position={[0, -0.8, 0]}
           fontSize={0.2}
           color="white"
-          font="https://fonts.gstatic.com/s/jetbrainsmono/v18/t6nu48P_hYvYp2rCc3L7vLsh.woff"
           anchorX="center"
           anchorY="middle"
         >

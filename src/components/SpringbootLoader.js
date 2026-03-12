@@ -26,22 +26,27 @@ const SpringbootLoader = ({ onLoadingComplete }) => {
   const [isFinished, setIsFinished] = useState(false);
 
   useEffect(() => {
-    let currentLine = 0;
     const timer = setInterval(() => {
-      if (currentLine < startupLines.length) {
-        setLogs(prev => [...prev, startupLines[currentLine]]);
-        currentLine++;
-      } else {
+      setLogs(prev => {
+        if (prev.length < startupLines.length) {
+          return [...prev, startupLines[prev.length]];
+        }
         clearInterval(timer);
-        setTimeout(() => {
-          setIsFinished(true);
-          setTimeout(onLoadingComplete, 800);
-        }, 500);
-      }
+        return prev;
+      });
     }, 80);
 
     return () => clearInterval(timer);
-  }, [onLoadingComplete]);
+  }, []);
+
+  useEffect(() => {
+    if (logs.length === startupLines.length && !isFinished) {
+      setTimeout(() => {
+        setIsFinished(true);
+        setTimeout(onLoadingComplete, 800);
+      }, 500);
+    }
+  }, [logs.length, isFinished, onLoadingComplete]);
 
   return (
     <AnimatePresence>
