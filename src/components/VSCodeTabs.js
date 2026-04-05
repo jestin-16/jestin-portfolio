@@ -30,10 +30,9 @@ const VSCodeTabs = ({ activeSection, onTabClick }) => {
             <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-brand-primary' : 'text-slate-500'}`} />
             <span>{tab.label}</span>
             {isActive && (
-              <motion.div 
-                layoutId="activeTabUnderline"
-                className="absolute bottom-0 left-0 right-0 h-[2px] bg-brand-primary shadow-[0_0_8px_rgba(0,255,136,0.6)]"
-              />
+              <motion.div                 layoutId="activeTabUnderline"
+                 className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-white shadow-[0_0_15px_rgba(255,255,255,0.4)]"
+               />
             )}
           </button>
         );

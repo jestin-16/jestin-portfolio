@@ -70,8 +70,8 @@ const ParticleMesh = ({ onComplete }) => {
         />
       </bufferGeometry>
       <pointsMaterial
-        size={0.05}
-        color="#8b5cf6" // brand-primary
+        size={0.03}
+        color="#F8FAFC"
         transparent
         opacity={0.8}
         blending={THREE.AdditiveBlending}

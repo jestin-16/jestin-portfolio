@@ -16,7 +16,7 @@ const AnimatedGradientSphere = () => {
   return (
     <Sphere ref={sphereRef} args={[3, 100, 100]} scale={2.5} position={[0, 0, -5]}>
       <MeshDistortMaterial
-        color="#8b5cf6"
+        color="#F8FAFC"
         attach="material"
         distort={0.4}
         speed={1.5}
@@ -43,7 +43,7 @@ const SecondarySphere = () => {
     return (
       <Sphere ref={sphereRef} args={[2.5, 64, 64]} scale={3} position={[-4, -2, -8]}>
         <MeshDistortMaterial
-          color="#3b82f6"
+          color="#94A3B8"
           attach="material"
           distort={0.5}
           speed={2}
@@ -70,8 +70,8 @@ const Background3D = () => {
         className="absolute inset-0 z-0"
       >
         <ambientLight intensity={0.5} />
-        <directionalLight position={[10, 10, 5]} intensity={1} color="#e0e7ff" />
-        <directionalLight position={[-10, -10, -5]} intensity={2} color="#8b5cf6" />
+        <directionalLight position={[10, 10, 5]} intensity={1} color="#ffffff" />
+        <directionalLight position={[-10, -10, -5]} intensity={2} color="#CBD5E1" />
         
         {/* Subtle animated stars / dust particles */}
         <Stars radius={100} depth={50} count={3000} factor={4} saturation={0} fade speed={1} />
