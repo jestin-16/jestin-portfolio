@@ -228,21 +228,20 @@ const App = () => {
 
   return (
     <ReactLenis root options={{ lerp: 0.05, smoothWheel: true }}>
-      <div ref={containerRef} className="min-h-screen font-sans bg-brand-void text-slate-300 selection:bg-brand-warning/30 relative overflow-hidden cursor-none">
+      <div ref={containerRef} className="min-h-screen font-sans bg-brand-void text-slate-400 selection:bg-brand-primary/20 relative overflow-hidden cursor-none">
         
         {/* Scroll Progress Bar */}
-        <div className="fixed top-0 left-0 w-full h-[2px] z-[100]">
-          <div id="scroll-progress" className="h-full bg-brand-primary shadow-[0_0_10px_rgba(0,255,136,0.8)] w-0 transition-all duration-100" />
+        <div className="fixed top-0 left-0 w-full h-[1px] z-[100]">
+          <div id="scroll-progress" className="h-full bg-brand-primary shadow-[0_0_15px_rgba(255,255,255,0.5)] w-0 transition-all duration-100" />
         </div>
 
-        {/* Custom Cursor */}
+        {/* Custom Cursor: Stellar Glow */}
         <motion.div 
-          className="fixed w-4 h-4 border border-brand-primary pointer-events-none z-[999] flex items-center justify-center"
-          animate={{ x: cursorPos.x - 8, y: cursorPos.y - 8 }}
-          transition={{ type: "spring", stiffness: 500, damping: 28, mass: 0.5 }}
+          className="fixed w-6 h-6 rounded-full border border-white/20 pointer-events-none z-[999] flex items-center justify-center mix-blend-difference"
+          animate={{ x: cursorPos.x - 12, y: cursorPos.y - 12 }}
+          transition={{ type: "spring", stiffness: 400, damping: 35, mass: 0.5 }}
         >
-          <div className="w-[1px] h-full bg-brand-primary/50 absolute" />
-          <div className="h-[1px] w-full bg-brand-primary/50 absolute" />
+          <div className="w-1 h-1 bg-white rounded-full shadow-[0_0_10px_white]" />
         </motion.div>
         
         {/* Loading Overlay */}
@@ -289,14 +288,15 @@ const App = () => {
                   <span className="w-1 h-1 bg-brand-primary rounded-full animate-ping" />
                   <span>SYSTEM_READY: PORT_3000</span>
                 </div>
-                <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight">
+                <h1 className="text-6xl md:text-8xl font-bold text-white leading-tight">
                   Backend Engineer.<br />
-                  <span className="italic text-brand-primary text-4xl md:text-5xl opacity-80">{"// Building systems"}</span><br />
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-warning to-brand-danger">that scale.</span>
+                  <span className="italic text-slate-500 text-4xl md:text-5xl font-light">{"// Architecting Systems"}</span><br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-slate-500">that scale.</span>
                 </h1>
               </div>
 
-              <div className="h-[350px] w-full">
+              <div className="h-[350px] w-full relative group">
+                <div className="absolute -inset-1 bg-gradient-to-r from-white/10 to-transparent blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                 <Terminal commands={TERMINAL_COMMANDS} />
               </div>
 
@@ -308,7 +308,7 @@ const App = () => {
                   onClick={() => {
                     navigator.clipboard.writeText("git clone https://github.com/jestin-16/portfolio.git");
                   }}
-                  className="group relative flex items-center justify-center space-x-3 bg-brand-primary text-brand-void px-8 py-4 rounded font-mono font-bold hover:shadow-[0_0_20px_rgba(0,255,136,0.5)] transition-all"
+                  className="group relative flex items-center justify-center space-x-3 bg-white text-brand-void px-10 py-4 rounded-full font-mono text-sm font-bold hover:shadow-[0_0_30px_rgba(255,255,255,0.3)] transition-all duration-500"
                 >
                   <Copy className="w-4 h-4" />
                   <span>[ $ git clone jestin-shaji ]</span>
@@ -335,14 +335,14 @@ const App = () => {
           <section id="about" className="pt-24 scroll-mt-24">
             <div className="grid lg:grid-cols-2 gap-16 items-center">
               <div className="space-y-6">
-                <div className="inline-flex items-center space-x-3 text-brand-secondary font-mono text-sm">
+                <div className="inline-flex items-center space-x-3 text-slate-500 font-mono text-xs uppercase tracking-widest">
                   <span>{"{"}</span>
-                  <span className="w-4 h-[1px] bg-brand-secondary/30" />
+                  <span className="w-8 h-[1px] bg-slate-800" />
                   <span>core_profile</span>
                   <span>{"}"}</span>
                 </div>
-                <h2 className="text-4xl md:text-5xl font-bold text-white">System <span className="text-brand-secondary">Architecture</span></h2>
-                <div className="space-y-4 text-slate-400 font-light leading-relaxed">
+                <h2 className="text-5xl md:text-6xl font-bold text-white">System <span className="text-slate-500">Architecture</span></h2>
+                <div className="space-y-4 text-slate-400 font-light leading-relaxed text-lg">
                   <p>
                     I am a Backend Developer and MCA student at AJCE, specializing in building the invisible engines that power the modern web.
                   </p>
@@ -351,8 +351,8 @@ const App = () => {
                   </p>
                 </div>
               </div>
-              <div className="relative">
-                <div className="absolute -inset-4 bg-brand-secondary/10 blur-2xl rounded-[2rem] opacity-30" />
+              <div className="relative group">
+                <div className="absolute -inset-4 bg-white/[0.02] blur-3xl rounded-[3rem] opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
                 <JSONViewer data={ABOUT_DATA} />
               </div>
             </div>
@@ -361,13 +361,13 @@ const App = () => {
           {/* Skills Section */}
           <section id="skills" className="scroll-mt-24">
             <div className="mb-12">
-              <div className="inline-flex items-center space-x-3 text-brand-warning font-mono text-sm mb-4">
+              <div className="inline-flex items-center space-x-3 text-slate-500 font-mono text-xs uppercase tracking-widest mb-4">
                 <span>{"["}</span>
-                <span className="w-4 h-[1px] bg-brand-warning/30" />
-                <span>technical_stack</span>
+                <span className="w-8 h-[1px] bg-slate-800" />
+                <span>technical_intelligence</span>
                 <span>{"]"}</span>
               </div>
-              <h2 className="text-4xl md:text-5xl font-bold text-white">The <span className="text-brand-warning">Arsenal</span></h2>
+              <h2 className="text-5xl md:text-6xl font-bold text-white">The <span className="text-slate-500">Stack</span></h2>
             </div>
             <SkillEditor skills={SKILLS_NEW} />
           </section>

@@ -33,54 +33,43 @@ const Terminal = ({ commands = [], prompt = "jestin@portfolio:~$" }) => {
   }, [currentLineIndex, commands]);
 
   return (
-    <div className="terminal-window w-full h-full flex flex-col font-mono text-sm shadow-2xl">
-      {/* OS Chrome */}
-      <div className="bg-brand-surface border-b border-white/5 px-4 py-2 flex items-center justify-between">
-        <div className="flex space-x-2">
-          <div className="w-3 h-3 rounded-full bg-brand-danger opacity-80" />
-          <div className="w-3 h-3 rounded-full bg-brand-warning opacity-80" />
-          <div className="w-3 h-3 rounded-full bg-brand-primary opacity-80" />
+    <div className="terminal-window w-full h-full flex flex-col font-mono text-xs shadow-2xl glass-panel">
+      {/* OS Chrome - Minimalist Silver */}
+      <div className="bg-white/[0.03] border-b border-white/[0.08] px-4 py-2.5 flex items-center justify-between">
+        <div className="flex space-x-1.5 focus-within:opacity-100 opacity-60 transition-opacity">
+          <div className="w-2.5 h-2.5 rounded-full bg-white/10 border border-white/5" />
+          <div className="w-2.5 h-2.5 rounded-full bg-white/10 border border-white/5" />
+          <div className="w-2.5 h-2.5 rounded-full bg-white/10 border border-white/5" />
         </div>
-        <div className="text-[10px] text-slate-500 uppercase tracking-widest">zsh — 80x24</div>
+        <div className="text-[9px] text-slate-500 uppercase tracking-[0.2em] font-medium">stellar_core // bash v5.2</div>
         <div className="w-12" />
       </div>
 
       {/* Terminal Content */}
       <div className="flex-1 p-6 overflow-y-auto no-scrollbar font-mono">
         {displayedLines.map((line, i) => (
-          <div key={i} className="mb-2">
+          <div key={i} className="mb-3">
             {line.type === 'input' ? (
               <div className="flex space-x-2">
-                <span className="text-brand-primary">{prompt}</span>
-                <span className="text-slate-200">{line.text}</span>
+                <span className="text-white font-bold opacity-30">{prompt}</span>
+                <span className="text-slate-200 tracking-tight">{line.text}</span>
               </div>
             ) : (
-              <div className="text-brand-code leading-relaxed pl-4 border-l border-white/5 mt-1">
+              <div className="text-slate-400 leading-relaxed pl-4 border-l border-white/[0.05] mt-1 text-[13px] font-light">
                 {line.text}
               </div>
             )}
           </div>
         ))}
         
-        {isTyping && (
+        {(isTyping || !isTyping) && (
           <div className="flex space-x-2">
-            <span className="text-brand-primary">{prompt}</span>
+            <span className="text-white font-bold opacity-30">{prompt}</span>
             <span className="text-slate-200">{currentText}</span>
             <motion.span 
               animate={{ opacity: [1, 0] }}
-              transition={{ repeat: Infinity, duration: 0.8 }}
-              className="w-2 h-4 bg-brand-primary inline-block self-center"
-            />
-          </div>
-        )}
-
-        {!isTyping && (
-          <div className="flex space-x-2">
-            <span className="text-brand-primary">{prompt}</span>
-            <motion.span 
-              animate={{ opacity: [1, 0] }}
-              transition={{ repeat: Infinity, duration: 0.8 }}
-              className="w-2 h-4 bg-brand-primary inline-block self-center"
+              transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+              className="w-1.5 h-4 bg-white/40 shadow-[0_0_8px_white] inline-block self-center ml-1"
             />
           </div>
         )}

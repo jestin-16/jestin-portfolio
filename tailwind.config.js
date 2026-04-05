@@ -7,15 +7,13 @@ module.exports = {
     extend: {
       colors: {
         brand: {
-          void: '#050508',
-          surface: '#0d0d14',
-          primary: '#00ff88', // terminal green
-          secondary: '#00d4ff', // cyan
-          warning: '#ffb700', // amber
-          danger: '#ff4757', // red
-          code: '#a8ff78',
-          grid: 'rgba(0, 255, 136, 0.06)',
-          dark: '#050508', // backward compatibility if needed
+          void: '#0A0A0F',     // Deep Obsidian
+          surface: '#12121A',  // Stellar Surface
+          primary: '#F8FAFC',  // Platinum White
+          secondary: '#94A3B8', // Cool Slate
+          accent: '#E2E8F0',    // Silver Mist
+          glass: 'rgba(255, 255, 255, 0.02)',
+          dark: '#0A0A0F',
         }
       },
       fontFamily: {
