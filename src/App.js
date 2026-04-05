@@ -224,178 +224,222 @@ const App = () => {
     setTimeout(() => {
         setIsAppLoaded(true);
     }, 400); // the particle timeline holds for 500ms at the end
-  };
-
-  return (
+  };  return (
     <ReactLenis root options={{ lerp: 0.05, smoothWheel: true }}>
-      <div ref={containerRef} className="min-h-screen font-sans bg-brand-void text-slate-600 selection:bg-brand-secondary/10 selection:text-brand-secondary relative overflow-hidden cursor-none">
+      <div ref={containerRef} className="min-h-screen font-sans bg-brand-void text-brand-primary selection:bg-brand-accent selection:text-white relative overflow-hidden">
         
-        {/* Scroll Progress Bar */}
-        <div className="fixed top-0 left-0 w-full h-[1px] z-[100]">
-          <div id="scroll-progress" className="h-full bg-blue-600 shadow-[0_0_15px_rgba(37,99,235,0.4)] w-0 transition-all duration-100" />
+        {/* Scroll Progress Bar - Editorial Red */}
+        <div className="fixed top-0 left-0 w-full h-[2px] z-[100]">
+          <div id="scroll-progress" className="h-full bg-brand-accent w-0 transition-all duration-100" />
         </div>
 
-        {/* Custom Cursor: Stellar Glow */}
-        <motion.div 
-          className="fixed w-8 h-8 rounded-full border border-slate-900/10 pointer-events-none z-[999] flex items-center justify-center bg-white/40 backdrop-blur-sm shadow-xl"
-          animate={{ x: cursorPos.x - 16, y: cursorPos.y - 16 }}
-          transition={{ type: "spring", stiffness: 500, damping: 40, mass: 0.2 }}
-        >
-          <div className="w-1.5 h-1.5 bg-slate-900 rounded-full" />
-        </motion.div>
-        
         {/* Loading Overlay */}
         {!isAppLoaded && <SpringbootLoader onLoadingComplete={handleLoadingComplete} />}
 
-        {/* Cinematic Layer: Background System */}
-        <BackgroundSystem />
-
-      {/* Navigation */}
+      {/* Navigation - Editorial Minimalist */}
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'py-0' : 'py-2'}`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-white/90 backdrop-blur-md border-b border-brand-border ${scrolled ? 'h-14' : 'h-20'}`}
       >
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex items-center justify-between h-14">
-            <div className="flex items-center space-x-2 font-mono text-slate-900 font-bold text-lg select-none">
-              <span className="flex items-center space-x-1">
-                <span className="text-blue-600 font-black tracking-tighter">JS.</span>
-                <span className="w-2.5 h-5 bg-slate-900 inline-block" />
-              </span>
+        <div className="max-w-[1400px] mx-auto px-8 h-full">
+          <div className="flex items-center justify-between h-full">
+            <div 
+              className="font-serif font-black text-2xl tracking-tighter cursor-pointer group flex items-center"
+              onClick={() => scrollToSection('home')}
+            >
+              <span className="text-brand-accent group-hover:rotate-12 transition-transform mr-1">.</span>
+              <span>jestin</span>
+              <span className="text-brand-accent font-light italic ml-1">shaji</span>
             </div>
             
-            <div className="hidden md:block flex-1 max-w-2xl mx-12">
-              <VSCodeTabs activeSection={activeSection} onTabClick={scrollToSection} />
-            </div>
+            <nav className="hidden md:flex items-center space-x-12">
+              {['home', 'about', 'skills', 'projects', 'contact'].map((id) => (
+                <button
+                  key={id}
+                  onClick={() => scrollToSection(id)}
+                  className={`text-[10px] uppercase font-mono tracking-[0.3em] relative py-2 group ${activeSection === id ? 'text-brand-accent' : 'text-brand-muted hover:text-brand-primary'}`}
+                >
+                  {id}
+                  <span className={`absolute bottom-0 left-0 w-full h-[2px] bg-brand-accent transition-transform duration-500 scale-x-0 group-hover:scale-x-100 origin-left ${activeSection === id ? 'scale-x-100' : ''}`} />
+                </button>
+              ))}
+            </nav>
 
-            <div className="flex items-center">
-              <span className="status-dot pulsing-green w-2 h-2 rounded-full bg-blue-600 mr-2 shadow-[0_0_10px_rgba(37,99,235,0.4)]" />
-              <span className="text-[10px] uppercase tracking-widest text-slate-900 font-mono hidden sm:inline font-bold">READY_TO_DEPLOY</span>
+            <div className="flex items-center space-x-4">
+              <span className="w-10 h-[1px] bg-brand-accent hidden sm:block" />
+              <span className="text-[9px] uppercase tracking-[0.4em] font-mono font-bold text-brand-primary">LATEST_V1.0</span>
             </div>
           </div>
         </div>
       </header>
 
-        {/* Hero Section */}
-        <section id="home" className="relative flex flex-col items-center justify-center min-h-screen pt-20 px-4 max-w-7xl mx-auto overflow-hidden">
-          
-          <div className="grid lg:grid-cols-2 gap-12 items-center w-full relative z-10">
-            {/* Left side — Terminal */}
-            <div className="space-y-8">
-              <div className="space-y-4">
-                <div className="inline-flex items-center space-x-2 text-[10px] font-mono tracking-[0.2em] text-blue-600 opacity-70 mb-2">
-                  <span className="w-1 h-1 bg-blue-600 rounded-full animate-ping" />
-                  <span>SYSTEM_READY: PORT_3000</span>
-                </div>
-                <h1 className="text-6xl md:text-8xl font-black text-slate-900 leading-tight tracking-tighter">
-                  Backend Engineer.<br />
-                  <span className="italic text-slate-400 text-4xl md:text-5xl font-light">{"// Scalable Solutions"}</span><br />
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-950 via-blue-900 to-slate-800">Architecting 1s & 0s.</span>
-                </h1>
+        {/* Hero Section - Asymmetric Editorial Layout */}
+        <section id="home" className="relative flex items-center min-h-screen pt-20 px-8 max-w-[1400px] mx-auto overflow-hidden">
+          <div className="grid lg:grid-cols-12 gap-12 w-full pt-12">
+            
+            {/* Main Heading Area (Col 1-8) */}
+            <div className="lg:col-span-8 space-y-12">
+              <div className="hero-badge inline-flex items-center space-x-4">
+                <span className="w-8 h-[2px] bg-brand-accent" />
+                <span className="text-[10px] font-mono font-black uppercase tracking-[0.5em] text-brand-accent">Software Architect</span>
               </div>
 
-              <div className="h-[350px] w-full relative group">
-                <div className="absolute -inset-1 bg-gradient-to-r from-white/10 to-transparent blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                <Terminal commands={TERMINAL_COMMANDS} />
-              </div>
+              <h1 className="text-7xl md:text-[8.5rem] lg:text-[10rem] font-serif font-black leading-[0.85] tracking-[-0.04em] text-brand-primary">
+                Developing <br />
+                <span className="italic font-light text-brand-muted ml-0 lg:ml-20">Systems.</span> <br />
+                <span className="text-brand-accent relative">
+                  Architecture.
+                  <span className="absolute -right-12 top-10 w-8 h-8 rounded-full border-[6px] border-brand-accent hidden md:block" />
+                </span>
+              </h1>
 
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <motion.button
-                  onMouseMove={handleMagneticMove}
-                  onMouseLeave={handleMagneticLeave}
-                  style={{ x: springX, y: springY }}
-                  onClick={() => {
-                    navigator.clipboard.writeText("git clone https://github.com/jestin-16/portfolio.git");
-                  }}
-                  className="group relative flex items-center justify-center space-x-3 bg-slate-900 text-white px-10 py-4 rounded-full font-mono text-sm font-bold hover:shadow-[0_20px_40px_rgba(15,23,42,0.3)] transition-all duration-500"
-                >
-                  <Copy className="w-4 h-4" />
-                  <span>[ core: git_sync ]</span>
-                </motion.button>
+              <div className="hero-desc max-w-xl border-l-[4px] border-brand-accent pl-12 py-4">
+                <p className="text-xl md:text-2xl font-medium leading-relaxed text-brand-muted italic">
+                  Crafting high-performance <span className="text-brand-primary font-bold">Java ecosystems</span> with editorial precision and architected resilience.
+                </p>
               </div>
             </div>
 
-            {/* Right side — 3D Microservices Diagram */}
-            <div className="hidden lg:block h-[600px] w-full relative">
-              <div className="absolute inset-0 bg-blue-600/5 rounded-full blur-[100px] opacity-20" />
-              <Canvas camera={{ position: [0, 0, 8], fov: 45 }}>
-                <ambientLight intensity={1} />
-                <pointLight position={[10, 10, 10]} intensity={1.5} color="#ffffff" />
-                <pointLight position={[-10, -10, -10]} intensity={0.5} color="#3b82f6" />
-                <MicroservicesDiagram />
-              </Canvas>
+            {/* CTA and Summary Area (Col 9-12) */}
+            <div className="lg:col-span-4 flex flex-col justify-end space-y-12 pb-20">
+              <div className="space-y-6">
+                <p className="font-mono text-[11px] leading-relaxed text-brand-muted uppercase tracking-widest">
+                  {"// Based in Kerala, India"} <br />
+                  {"// Specializing in Spring Boot"} <br />
+                  {"// MCA Graduate Candidate"}
+                </p>
+                <div className="flex gap-4">
+                  <button 
+                     onClick={() => scrollToSection('contact')}
+                     className="bg-brand-primary text-white px-10 py-5 rounded-full font-mono text-[10px] font-black uppercase tracking-widest hover:bg-brand-accent transition-colors duration-500 shadow-[0_20px_40px_rgba(0,0,0,0.1)] hover:shadow-[0_20px_50px_rgba(227,0,15,0.3)]"
+                  >
+                    Establish_Connection
+                  </button>
+                </div>
+              </div>
+
+              <div className="lg:hidden h-[300px] w-full relative">
+                <Terminal commands={TERMINAL_COMMANDS} theme="editorial" />
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Global wrapper for scroll sections to limit width */}
-        <div className="max-w-7xl mx-auto px-4 space-y-32 mb-32">
-          {/* About Section */}
-          <section id="about" className="pt-24 scroll-mt-24">
-            <div className="grid lg:grid-cols-2 gap-16 items-center">
-              <div className="space-y-6">
-                <div className="inline-flex items-center space-x-3 text-slate-500 font-mono text-xs uppercase tracking-widest">
-                  <span>{"{"}</span>
-                  <span className="w-8 h-[1px] bg-slate-800" />
-                  <span>core_profile</span>
-                  <span>{"}"}</span>
-                </div>
-                <h2 className="text-5xl md:text-6xl font-black text-slate-900 italic">System <span className="text-blue-600">Architecture</span></h2>
-                <div className="space-y-4 text-slate-400 font-light leading-relaxed text-lg">
-                  <p>
-                    I am a Backend Developer and MCA student at AJCE, specializing in building the invisible engines that power the modern web.
-                  </p>
-                  <p>
-                    My focus lies at the intersection of <span className="text-blue-600 font-bold">Java, Spring Boot, and Cloud Native Architectures</span>. I believe in writing code that isn't just functional, but resilient, scalable, and easy to monitor.
-                  </p>
+        {/* Main Content Layout */}
+        <div className="max-w-[1400px] mx-auto px-8 space-y-64 mb-64">
+          
+          {/* About Section - Editorial Spread */}
+          <section id="about" className="scroll-mt-24">
+            <div className="grid lg:grid-cols-12 gap-20">
+              <div className="lg:col-span-1 hidden lg:block">
+                <div className="sticky top-40 flex flex-col items-center">
+                  <span className="text-[10px] font-mono font-black vertical-text uppercase tracking-[1em] text-brand-accent">01. PROFILE</span>
+                  <div className="w-[1px] h-32 bg-brand-accent mt-8" />
                 </div>
               </div>
-              <div className="relative group">
-                <div className="absolute -inset-4 bg-white/[0.02] blur-3xl rounded-[3rem] opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-                <JSONViewer data={ABOUT_DATA} />
+              
+              <div className="lg:col-span-6 space-y-12">
+                <h2 className="text-6xl md:text-8xl font-serif font-black tracking-tight leading-none italic">
+                  Philosophy <br />
+                  <span className="text-brand-accent ml-20">& Logic.</span>
+                </h2>
+                <div className="space-y-8 text-xl text-brand-muted leading-relaxed font-medium">
+                  <p>
+                    I architect the <span className="text-brand-primary font-bold">invisible engines</span> that power the modern web. My focus lies at the intersection of enterprise-grade Java and cloud-native resilience.
+                  </p>
+                  <p>
+                    I believe in code that isn't just functional, but <span className="italic font-light">beautifully structured</span>—designed to scale, monitored to survive, and documented to last.
+                  </p>
+                </div>
+                
+                <div className="pt-8">
+                  <div className="inline-grid grid-cols-2 gap-x-20 gap-y-8 p-10 bg-brand-surface border border-brand-border rounded-4xl">
+                    <div className="space-y-1">
+                      <span className="text-brand-accent text-[8px] font-black uppercase tracking-widest">Education</span>
+                      <p className="font-serif font-black text-xl italic uppercase">MCA @ AJCE</p>
+                    </div>
+                    <div className="space-y-1">
+                      <span className="text-brand-accent text-[8px] font-black uppercase tracking-widest">Location</span>
+                      <p className="font-serif font-black text-xl italic uppercase">Kerala, IN</p>
+                    </div>
+                    <div className="space-y-1">
+                      <span className="text-brand-accent text-[8px] font-black uppercase tracking-widest">Focus</span>
+                      <p className="font-serif font-black text-xl italic uppercase">Spring Boot</p>
+                    </div>
+                    <div className="space-y-1">
+                      <span className="text-brand-accent text-[8px] font-black uppercase tracking-widest">Status</span>
+                      <p className="font-serif font-black text-xl italic uppercase font-blue">Open to Work</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="lg:col-span-5 flex items-center">
+                <div className="w-full h-full min-h-[400px] p-1 bg-white border border-brand-border rounded-xl shadow-2xl">
+                    <JSONViewer data={ABOUT_DATA} theme="editorial" />
+                </div>
               </div>
             </div>
           </section>
 
-          {/* Skills Section */}
+          {/* Skills Section - The Grid */}
           <section id="skills" className="scroll-mt-24">
-            <div className="mb-12">
-              <div className="inline-flex items-center space-x-3 text-slate-500 font-mono text-xs uppercase tracking-widest mb-4">
-                <span>{"["}</span>
-                <span className="w-8 h-[1px] bg-slate-800" />
-                <span>technical_intelligence</span>
-                <span>{"]"}</span>
+            <div className="flex flex-col md:flex-row items-end justify-between mb-24 gap-8">
+              <div className="space-y-4">
+                <span className="text-[10px] font-mono font-black uppercase tracking-[0.5em] text-brand-accent">02. CAPABILITIES</span>
+                <h2 className="text-6xl md:text-8xl font-serif font-black tracking-tighter uppercase italic leading-[0.8]">
+                  Technical <br /> <span className="text-brand-accent">Spec_Sheet</span>
+                </h2>
               </div>
-              <h2 className="text-5xl md:text-6xl font-black text-slate-900 uppercase italic">The <span className="text-blue-600">Stack</span></h2>
+              <div className="max-w-md text-right border-r-[4px] border-brand-accent pr-8 py-2">
+                <p className="text-brand-muted font-medium italic underline decoration-brand-accent/20 underline-offset-8">
+                  Core competencies across the full backend stack—from database design to microservices orchestration.
+                </p>
+              </div>
             </div>
-            <SkillEditor skills={SKILLS_NEW} />
+            <SkillEditor skills={SKILLS_NEW} theme="editorial" />
           </section>
 
-          {/* Projects Section */}
+          {/* Projects Section - Editorial Cards */}
           <section id="projects" className="scroll-mt-24">
-            <div className="mb-12">
-              <div className="inline-flex items-center space-x-3 text-blue-600 font-mono text-sm mb-4">
-                <span className="tracking-[0.3em] font-black uppercase text-[10px]">Collection_Nodes</span>
-                <span className="w-4 h-[1px] bg-blue-600/30" />
-                <span>recent_deployments</span>
-                <span>{")"}</span>
+            <div className="mb-24 flex items-center space-x-12">
+               <h2 className="text-6xl md:text-8xl font-serif font-black tracking-tight uppercase italic leading-none shrink-0">
+                Production <br /> <span className="text-brand-accent ml-20">History</span>
+              </h2>
+              <div className="w-full h-[2px] bg-brand-border relative overflow-hidden">
+                <motion.div 
+                  initial={{ x: "-100%" }}
+                  whileInView={{ x: "100%" }}
+                  transition={{ repeat: Infinity, duration: 4, ease: "linear" }}
+                  className="absolute top-0 left-0 w-1/4 h-full bg-brand-accent" 
+                />
               </div>
-              <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tighter uppercase italic">Selected <span className="text-blue-600">Work</span></h2>
             </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
               {PROJECTS.map((project, i) => (
-                <ProjectTerminalCard key={i} project={project} i={i} />
+                <ProjectTerminalCard key={i} project={project} i={i} theme="editorial" />
               ))}
             </div>
           </section>
 
           {/* Contact Section */}
-          <section id="contact" className="scroll-mt-24 pb-20">
-            <ContactTerminal />
+          <section id="contact" className="scroll-mt-24 pb-32">
+             <div className="max-w-4xl mx-auto">
+                <div className="text-center space-y-8 mb-20">
+                  <span className="text-[10px] font-mono font-black uppercase tracking-[0.5em] text-brand-accent">04. HANDSHAKE</span>
+                  <h2 className="text-6xl md:text-[7rem] font-serif font-black tracking-tighter leading-none italic uppercase">
+                    Launch <br /> <span className="text-brand-accent">Connection_</span>
+                  </h2>
+                </div>
+                <ContactTerminal theme="editorial" />
+             </div>
           </section>
         </div>
 
-        {/* Global Footer / Status Bar */}
-        <StatusBar />
+        {/* Global Footer / Status Bar - Inverted Editorial */}
+        <footer className="bg-brand-primary py-2 text-white">
+           <StatusBar theme="editorial" />
+        </footer>
       </div>
     </ReactLenis>
   );

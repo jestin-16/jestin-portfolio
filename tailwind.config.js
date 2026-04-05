@@ -7,16 +7,17 @@ module.exports = {
     extend: {
       colors: {
         brand: {
-          void: '#F8FAFC',     // Slate 50
-          surface: '#FFFFFF',  // White
-          primary: '#0F172A',  // Slate 900
-          secondary: '#2563EB', // Blue 600
-          accent: '#64748B',    // Slate 500
-          glass: 'rgba(255, 255, 255, 0.4)',
-          dark: '#F8FAFC',
+          void: '#FFFFFF',      // Pure White
+          paper: '#F5F5F0',     // Off White
+          primary: '#0A0A0A',   // Deep Black
+          accent: '#E3000F',    // Vivid Red
+          muted: '#6B6B6B',     // Medium Gray
+          border: '#E0E0E0',    // Light Gray
+          surface: '#FAFAFA',   // Card Surface
         }
       },
       fontFamily: {
+        serif: ['"Playfair Display"', 'serif'],
         mono: ['"JetBrains Mono"', 'monospace'],
         sans: ['"DM Sans"', 'sans-serif'],
       },

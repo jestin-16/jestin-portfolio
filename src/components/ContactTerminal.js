@@ -4,83 +4,94 @@ import { Mail, Github, Linkedin } from 'lucide-react';
 
 const ContactTerminal = () => {
   return (
-    <div className="terminal-window max-w-4xl mx-auto bg-white border border-slate-200 rounded-3xl shadow-[0_30px_70px_rgba(0,0,0,0.06)] overflow-hidden">
-      {/* Header - Minimalist Light */}
-      <div className="bg-slate-50/50 border-b border-slate-100 px-8 py-5 flex items-center justify-between">
-        <div className="flex items-center space-x-3">
-          <div className="flex space-x-2 mr-6 opacity-30">
-            <div className="w-2.5 h-2.5 rounded-full bg-slate-900" />
-            <div className="w-2.5 h-2.5 rounded-full bg-slate-900" />
-            <div className="w-2.5 h-2.5 rounded-full bg-slate-900" />
-          </div>
-          <span className="text-[10px] font-mono text-slate-400 uppercase tracking-[0.25em] font-black">gateway_node // secure_contact_v2</span>
+    <div className="max-w-5xl mx-auto bg-white border border-brand-border rounded-lg overflow-hidden transition-all duration-1000">
+      {/* Editorial Header */}
+      <div className="bg-brand-surface border-b border-brand-border p-8 flex items-center justify-between">
+        <div className="flex items-center space-x-4">
+          <span className="w-10 h-[2px] bg-brand-accent scale-x-150 origin-left" />
+          <span className="text-[10px] font-mono text-brand-primary uppercase tracking-[0.5em] font-black italic">Communication_Gateway</span>
+        </div>
+        <div className="hidden sm:flex items-center space-x-6">
+          <span className="text-[8px] font-mono text-brand-muted opacity-40 uppercase tracking-widest italic">ESTABLISHED: 2024</span>
+          <div className="w-2 h-2 rounded-full border-2 border-brand-accent animate-ping" />
         </div>
       </div>
 
-      {/* Content */}
-      <div className="p-12 font-mono">
-        <div className="mb-12 border-l-4 border-blue-600/10 pl-10 py-4">
-          <motion.h3 
-            initial={{ opacity: 0, x: -10 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            className="text-4xl md:text-5xl text-slate-950 font-['Outfit'] font-black mb-4 tracking-tighter italic"
-          >
-            "Let's architect <span className="text-blue-600">the future</span> together."
-          </motion.h3>
-          <p className="text-slate-500 font-bold text-lg leading-relaxed opacity-60 italic">Handshake initiated. Ready for connection.</p>
-        </div>
+      {/* Editorial Content Spread */}
+      <div className="p-16 md:p-24 bg-white relative">
+        <div className="grid lg:grid-cols-12 gap-20">
+          
+          {/* Column A: Editorial Heading */}
+          <div className="lg:col-span-12 space-y-10 border-l-[6px] border-brand-accent pl-12 py-4 mb-10">
+             <h3 className="text-6xl md:text-8xl font-serif font-black text-brand-primary leading-[0.9] tracking-tighter italic uppercase">
+                Let's <br /> <span className="text-brand-accent">Collaborate.</span>
+             </h3>
+             <p className="text-brand-muted text-xl md:text-2xl font-medium leading-relaxed max-w-2xl italic">
+                Seeking ambitious engineering roles and collaborative architectural challenges. Reach out for technical consultation or professional inquiries.
+             </p>
+          </div>
 
-        <div className="grid md:grid-cols-2 gap-14">
-          {/* Action Part */}
-          <div className="space-y-10">
-            <div className="space-y-4">
-              <div className="text-[10px] text-slate-400 font-black tracking-[0.35em] uppercase">SYSTEM_POST_REQUEST</div>
-              <div className="p-6 bg-slate-50/50 rounded-2xl border border-slate-100 text-[12px] leading-relaxed">
-                <div className="text-slate-900 font-black mb-2 tracking-tight">POST <span className="text-blue-600">/api/v2/contact_handshake</span></div>
-                <div className="text-slate-500 font-medium">Destination: <span className="text-slate-900 font-bold underline decoration-blue-600/30">jestinshaji777@gmail.com</span></div>
-                <div className="text-blue-600/40 mt-5 font-black italic tracking-widest text-[9px]">{"/* SYNC_KEY_ACCEPTED */"}</div>
+          {/* Column B: Active Connection (Col 1-7) */}
+          <div className="lg:col-span-7 space-y-12">
+            <div className="space-y-6">
+              <div className="text-[10px] text-brand-accent font-black tracking-[0.4em] uppercase font-mono">01. Direct_Access</div>
+              <div className="p-10 bg-brand-paper rounded-sm border border-brand-border/40 group hover:border-brand-accent/30 transition-all duration-700">
+                <div className="text-brand-primary font-black mb-4 tracking-tight font-serif text-xl italic uppercase">Email Endpoint</div>
+                <div className="text-brand-muted font-mono text-xs mb-8 opacity-70">{"// protocol: SMTP // handshake: SECURE"}</div>
+                <div className="text-2xl md:text-3xl text-brand-primary font-black tracking-tight break-all underline decoration-brand-accent/10 underline-offset-8">
+                  jestinshaji777@gmail.com
+                </div>
               </div>
             </div>
             
             <a 
               href="mailto:jestinshaji777@gmail.com"
-              className="flex items-center justify-center space-x-4 w-full bg-slate-950 text-white py-6 rounded-full font-black shadow-[0_20px_40px_rgba(0,0,0,0.15)] transition-all duration-500 hover:bg-blue-600 hover:shadow-[0_20px_50px_rgba(37,99,235,0.4)] hover:scale-[1.02] active:scale-[0.98] group"
+              className="inline-flex items-center space-x-6 bg-brand-primary text-white px-16 py-7 rounded-full font-black hover:bg-brand-accent transition-all duration-700 group shadow-[0_20px_50px_rgba(0,0,0,0.15)] hover:shadow-[0_20px_50px_rgba(227,0,15,0.4)]"
             >
               <Mail className="w-5 h-5 group-hover:rotate-12 transition-transform" />
-              <span className="font-['Outfit'] tracking-widest uppercase text-xs">Establish Connection</span>
+              <span className="font-mono tracking-[0.3em] uppercase text-[10px]">Establish Connection</span>
             </a>
           </div>
 
-          {/* Social Endpoints */}
-          <div className="space-y-8">
-            <div className="text-[10px] text-slate-400 font-black tracking-[0.35em] uppercase">NETWORK_ENDPOINTS</div>
-            <div className="space-y-5">
-              <a 
-                href="https://github.com/jestin-16" 
-                target="_blank" 
-                rel="noreferrer"
-                className="flex items-center justify-between p-6 bg-white border border-slate-100 rounded-3xl hover:border-blue-600/20 hover:shadow-[0_15px_30px_rgba(0,0,0,0.04)] transition-all duration-500 group"
-              >
-                <div className="flex items-center space-x-5">
-                  <span className="text-[10px] text-slate-300 font-black uppercase tracking-tighter">GET</span>
-                  <span className="text-slate-950 font-black italic tracking-tight opacity-70">/jestin-16</span>
-                </div>
-                <Github className="w-5 h-5 text-slate-400 group-hover:text-blue-600 transition-colors" />
-              </a>
-              <a 
-                href="https://www.linkedin.com/in/jestin-shaji" 
-                target="_blank" 
-                rel="noreferrer"
-                className="flex items-center justify-between p-6 bg-white border border-slate-100 rounded-3xl hover:border-blue-600/20 hover:shadow-[0_15px_30px_rgba(0,0,0,0.04)] transition-all duration-500 group"
-              >
-                <div className="flex items-center space-x-5">
-                  <span className="text-[10px] text-slate-300 font-black uppercase tracking-tighter">GET</span>
-                  <span className="text-slate-950 font-black italic tracking-tight opacity-70">/jestin-shaji</span>
-                </div>
-                <Linkedin className="w-5 h-5 text-slate-400 group-hover:text-blue-600 transition-colors" />
-              </a>
+          {/* Column C: Network Nodes (Col 8-12) */}
+          <div className="lg:col-span-5 space-y-12">
+            <div className="space-y-6">
+              <div className="text-[10px] text-brand-muted font-black tracking-[0.4em] uppercase font-mono">02. Network_Nodes</div>
+              <div className="grid gap-6">
+                <a 
+                  href="https://github.com/jestin-16" 
+                  target="_blank" 
+                  rel="noreferrer"
+                  className="flex items-center justify-between p-8 bg-white border border-brand-border hover:border-brand-accent/30 transition-all duration-500 group"
+                >
+                  <div className="flex flex-col">
+                    <span className="text-[9px] text-brand-muted font-black uppercase tracking-widest mb-1 opacity-50">Remote: Github</span>
+                    <span className="text-brand-primary font-serif font-black italic text-lg uppercase">/jestin-16</span>
+                  </div>
+                  <Github className="w-5 h-5 text-brand-muted group-hover:text-brand-accent transition-colors" />
+                </a>
+                <a 
+                  href="https://www.linkedin.com/in/jestin-shaji" 
+                  target="_blank" 
+                  rel="noreferrer"
+                  className="flex items-center justify-between p-8 bg-white border border-brand-border hover:border-brand-accent/30 transition-all duration-500 group"
+                >
+                   <div className="flex flex-col">
+                    <span className="text-[9px] text-brand-muted font-black uppercase tracking-widest mb-1 opacity-50">Remote: LinkedIn</span>
+                    <span className="text-brand-primary font-serif font-black italic text-lg uppercase">/jestin-shaji</span>
+                  </div>
+                  <Linkedin className="w-5 h-5 text-brand-muted group-hover:text-brand-accent transition-colors" />
+                </a>
+              </div>
             </div>
           </div>
+        </div>
+
+        {/* Decorative Grid Marker */}
+        <div className="absolute bottom-10 right-10 flex space-x-2 opacity-10">
+           <div className="w-4 h-4 border border-black" />
+           <div className="w-4 h-4 border border-black bg-brand-accent" />
+           <div className="w-4 h-4 border border-black" />
         </div>
       </div>
     </div>

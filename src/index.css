@@ -1,32 +1,27 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Outfit:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=DM+Sans:wght@300;400;500;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --bg-void: #F8FAFC;
-  --bg-surface: #FFFFFF;
-  --accent-primary: #0F172A;
-  --accent-secondary: #2563EB;
-  --accent-warning: #64748B;
-  --accent-danger: #020617;
-  --text-code: #1E293B;
-  --grid-line: rgba(15, 23, 42, 0.04);
+  --bg-void: #FFFFFF;
+  --bg-paper: #F5F5F0;
+  --accent-primary: #0A0A0A;
+  --accent-editorial: #E3000F;
+  --text-main: #1C1C1C;
+  --text-muted: #6B6B6B;
+  --border-editorial: #E0E0E0;
 }
 
 @layer base {
   body {
-    @apply bg-brand-void text-slate-700 font-sans antialiased overflow-x-hidden;
+    @apply bg-brand-void text-brand-primary font-sans antialiased overflow-x-hidden selection:bg-brand-accent selection:text-white;
     margin: 0;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-['Outfit'] font-bold tracking-tight text-slate-900;
-  }
-
-  ::selection {
-    @apply bg-brand-secondary/10 text-brand-secondary;
+    @apply font-serif font-black tracking-tight text-brand-primary;
   }
 }
 
