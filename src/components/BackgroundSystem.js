@@ -18,7 +18,6 @@ const BackgroundSystem = () => {
     resizeCanvas();
 
     // Code Rain Setup
-    const characters = '0123456789ABCDEF';
     const fontSize = 14;
     const columns = Math.ceil(canvas.width / fontSize);
     const drops = new Array(columns).fill(1).map(() => Math.random() * -100);
