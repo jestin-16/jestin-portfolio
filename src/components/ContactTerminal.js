@@ -4,80 +4,80 @@ import { Mail, Github, Linkedin } from 'lucide-react';
 
 const ContactTerminal = () => {
   return (
-    <div className="terminal-window max-w-4xl mx-auto glass-panel">
-      {/* Header - Minimalist Silver */}
-      <div className="bg-white/[0.03] border-b border-white/[0.08] px-6 py-4 flex items-center justify-between">
-        <div className="flex items-center space-x-2">
-          <div className="flex space-x-1.5 mr-4 opacity-50">
-            <div className="w-2.5 h-2.5 rounded-full bg-white/20" />
-            <div className="w-2.5 h-2.5 rounded-full bg-white/20" />
-            <div className="w-2.5 h-2.5 rounded-full bg-white/20" />
+    <div className="terminal-window max-w-4xl mx-auto bg-white border border-slate-200 rounded-3xl shadow-[0_30px_70px_rgba(0,0,0,0.06)] overflow-hidden">
+      {/* Header - Minimalist Light */}
+      <div className="bg-slate-50/50 border-b border-slate-100 px-8 py-5 flex items-center justify-between">
+        <div className="flex items-center space-x-3">
+          <div className="flex space-x-2 mr-6 opacity-30">
+            <div className="w-2.5 h-2.5 rounded-full bg-slate-900" />
+            <div className="w-2.5 h-2.5 rounded-full bg-slate-900" />
+            <div className="w-2.5 h-2.5 rounded-full bg-slate-900" />
           </div>
-          <span className="text-[10px] font-mono text-slate-500 uppercase tracking-[0.2em]">stellar_core // contact_gateway</span>
+          <span className="text-[10px] font-mono text-slate-400 uppercase tracking-[0.25em] font-black">gateway_node // secure_contact_v2</span>
         </div>
       </div>
 
       {/* Content */}
-      <div className="p-10 font-mono">
-        <div className="mb-10 border-l-[0.5px] border-white/20 pl-8 py-2">
+      <div className="p-12 font-mono">
+        <div className="mb-12 border-l-4 border-blue-600/10 pl-10 py-4">
           <motion.h3 
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            className="text-3xl md:text-4xl text-white font-['Outfit'] font-bold mb-4 tracking-tight"
+            initial={{ opacity: 0, x: -10 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            className="text-4xl md:text-5xl text-slate-950 font-['Outfit'] font-black mb-4 tracking-tighter italic"
           >
-            "Ready to build something <span className="text-slate-400 font-light italic">extraordinary</span>?"
+            "Let's architect <span className="text-blue-600">the future</span> together."
           </motion.h3>
-          <p className="text-slate-500 font-light text-lg">Let's connect and architect the future.</p>
+          <p className="text-slate-500 font-bold text-lg leading-relaxed opacity-60 italic">Handshake initiated. Ready for connection.</p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12">
+        <div className="grid md:grid-cols-2 gap-14">
           {/* Action Part */}
-          <div className="space-y-8">
-            <div className="space-y-3">
-              <div className="text-[9px] text-slate-600 font-bold tracking-[0.3em] uppercase">SYSTEM_REQUEST</div>
-              <div className="p-5 bg-white/[0.02] rounded-2xl border border-white/[0.05] text-xs">
-                <div className="text-white opacity-80 font-bold mb-1">POST <span className="text-slate-500 font-normal">/contact/message HTTP/3.0</span></div>
-                <div className="text-slate-400">Destination: <span className="text-white opacity-60 courier">jestinshaji777@gmail.com</span></div>
-                <div className="text-slate-700 mt-3 font-italic">{"/* Handshake initiated... */"}</div>
+          <div className="space-y-10">
+            <div className="space-y-4">
+              <div className="text-[10px] text-slate-400 font-black tracking-[0.35em] uppercase">SYSTEM_POST_REQUEST</div>
+              <div className="p-6 bg-slate-50/50 rounded-2xl border border-slate-100 text-[12px] leading-relaxed">
+                <div className="text-slate-900 font-black mb-2 tracking-tight">POST <span className="text-blue-600">/api/v2/contact_handshake</span></div>
+                <div className="text-slate-500 font-medium">Destination: <span className="text-slate-900 font-bold underline decoration-blue-600/30">jestinshaji777@gmail.com</span></div>
+                <div className="text-blue-600/40 mt-5 font-black italic tracking-widest text-[9px]">{"/* SYNC_KEY_ACCEPTED */"}</div>
               </div>
             </div>
             
             <a 
               href="mailto:jestinshaji777@gmail.com"
-              className="flex items-center justify-center space-x-3 w-full bg-white text-brand-void py-5 rounded-full font-bold transition-all duration-500 hover:shadow-[0_0_40px_rgba(255,255,255,0.2)] hover:scale-[1.02] active:scale-[0.98] group"
+              className="flex items-center justify-center space-x-4 w-full bg-slate-950 text-white py-6 rounded-full font-black shadow-[0_20px_40px_rgba(0,0,0,0.15)] transition-all duration-500 hover:bg-blue-600 hover:shadow-[0_20px_50px_rgba(37,99,235,0.4)] hover:scale-[1.02] active:scale-[0.98] group"
             >
-              <Mail className="w-5 h-5" />
-              <span className="font-['Outfit'] tracking-wide">INITIALIZE_CHAT</span>
+              <Mail className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+              <span className="font-['Outfit'] tracking-widest uppercase text-xs">Establish Connection</span>
             </a>
           </div>
 
           {/* Social Endpoints */}
-          <div className="space-y-6">
-            <div className="text-[9px] text-slate-600 font-bold tracking-[0.3em] uppercase">CLOUD_ENDPOINTS</div>
-            <div className="space-y-4">
+          <div className="space-y-8">
+            <div className="text-[10px] text-slate-400 font-black tracking-[0.35em] uppercase">NETWORK_ENDPOINTS</div>
+            <div className="space-y-5">
               <a 
                 href="https://github.com/jestin-16" 
                 target="_blank" 
                 rel="noreferrer"
-                className="flex items-center justify-between p-5 bg-white/[0.02] border border-white/[0.05] rounded-2xl hover:bg-white/[0.05] hover:border-white/20 transition-all duration-500 group"
+                className="flex items-center justify-between p-6 bg-white border border-slate-100 rounded-3xl hover:border-blue-600/20 hover:shadow-[0_15px_30px_rgba(0,0,0,0.04)] transition-all duration-500 group"
               >
-                <div className="flex items-center space-x-4">
-                  <span className="text-[10px] text-slate-600 font-bold">GET</span>
-                  <span className="text-slate-300 font-light">/github/profile</span>
+                <div className="flex items-center space-x-5">
+                  <span className="text-[10px] text-slate-300 font-black uppercase tracking-tighter">GET</span>
+                  <span className="text-slate-950 font-black italic tracking-tight opacity-70">/jestin-16</span>
                 </div>
-                <Github className="w-4 h-4 text-slate-500 group-hover:text-white transition-colors" />
+                <Github className="w-5 h-5 text-slate-400 group-hover:text-blue-600 transition-colors" />
               </a>
               <a 
                 href="https://www.linkedin.com/in/jestin-shaji" 
                 target="_blank" 
                 rel="noreferrer"
-                className="flex items-center justify-between p-5 bg-white/[0.02] border border-white/[0.05] rounded-2xl hover:bg-white/[0.05] hover:border-white/20 transition-all duration-500 group"
+                className="flex items-center justify-between p-6 bg-white border border-slate-100 rounded-3xl hover:border-blue-600/20 hover:shadow-[0_15px_30px_rgba(0,0,0,0.04)] transition-all duration-500 group"
               >
-                <div className="flex items-center space-x-4">
-                  <span className="text-[10px] text-slate-600 font-bold">GET</span>
-                  <span className="text-slate-300 font-light">/linkedin/network</span>
+                <div className="flex items-center space-x-5">
+                  <span className="text-[10px] text-slate-300 font-black uppercase tracking-tighter">GET</span>
+                  <span className="text-slate-950 font-black italic tracking-tight opacity-70">/jestin-shaji</span>
                 </div>
-                <Linkedin className="w-4 h-4 text-slate-500 group-hover:text-white transition-colors" />
+                <Linkedin className="w-5 h-5 text-slate-400 group-hover:text-blue-600 transition-colors" />
               </a>
             </div>
           </div>

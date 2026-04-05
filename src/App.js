@@ -232,7 +232,7 @@ const App = () => {
         
         {/* Scroll Progress Bar */}
         <div className="fixed top-0 left-0 w-full h-[1px] z-[100]">
-          <div id="scroll-progress" className="h-full bg-brand-primary shadow-[0_0_15px_rgba(255,255,255,0.5)] w-0 transition-all duration-100" />
+          <div id="scroll-progress" className="h-full bg-blue-600 shadow-[0_0_15px_rgba(37,99,235,0.4)] w-0 transition-all duration-100" />
         </div>
 
         {/* Custom Cursor: Stellar Glow */}
@@ -256,13 +256,11 @@ const App = () => {
       >
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between h-14">
-            <div className="flex items-center space-x-2 font-mono text-brand-primary font-bold text-lg select-none">
-              <span>{">"} jestin_shaji</span>
-              <motion.span 
-                animate={{ opacity: [1, 0] }}
-                transition={{ repeat: Infinity, duration: 0.8 }}
-                className="w-2.5 h-5 bg-brand-primary inline-block"
-              />
+            <div className="flex items-center space-x-2 font-mono text-slate-900 font-bold text-lg select-none">
+              <span className="flex items-center space-x-1">
+                <span className="text-blue-600 font-black tracking-tighter">JS.</span>
+                <span className="w-2.5 h-5 bg-slate-900 inline-block" />
+              </span>
             </div>
             
             <div className="hidden md:block flex-1 max-w-2xl mx-12">
@@ -284,8 +282,8 @@ const App = () => {
             {/* Left side — Terminal */}
             <div className="space-y-8">
               <div className="space-y-4">
-                <div className="inline-flex items-center space-x-2 text-[10px] font-mono tracking-[0.2em] text-brand-primary opacity-70 mb-2">
-                  <span className="w-1 h-1 bg-brand-primary rounded-full animate-ping" />
+                <div className="inline-flex items-center space-x-2 text-[10px] font-mono tracking-[0.2em] text-blue-600 opacity-70 mb-2">
+                  <span className="w-1 h-1 bg-blue-600 rounded-full animate-ping" />
                   <span>SYSTEM_READY: PORT_3000</span>
                 </div>
                 <h1 className="text-6xl md:text-8xl font-black text-slate-900 leading-tight tracking-tighter">
@@ -318,7 +316,7 @@ const App = () => {
 
             {/* Right side — 3D Microservices Diagram */}
             <div className="hidden lg:block h-[600px] w-full relative">
-              <div className="absolute inset-0 bg-brand-primary/5 rounded-full blur-[100px] opacity-20" />
+              <div className="absolute inset-0 bg-blue-600/5 rounded-full blur-[100px] opacity-20" />
               <Canvas camera={{ position: [0, 0, 8], fov: 45 }}>
                 <ambientLight intensity={1} />
                 <pointLight position={[10, 10, 10]} intensity={1.5} color="#ffffff" />
@@ -375,9 +373,9 @@ const App = () => {
           {/* Projects Section */}
           <section id="projects" className="scroll-mt-24">
             <div className="mb-12">
-              <div className="inline-flex items-center space-x-3 text-brand-primary font-mono text-sm mb-4">
-                <span>{"("}</span>
-                <span className="w-4 h-[1px] bg-brand-primary/30" />
+              <div className="inline-flex items-center space-x-3 text-blue-600 font-mono text-sm mb-4">
+                <span className="tracking-[0.3em] font-black uppercase text-[10px]">Collection_Nodes</span>
+                <span className="w-4 h-[1px] bg-blue-600/30" />
                 <span>recent_deployments</span>
                 <span>{")"}</span>
               </div>

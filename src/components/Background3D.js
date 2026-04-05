@@ -16,15 +16,14 @@ const AnimatedGradientSphere = () => {
   return (
     <Sphere ref={sphereRef} args={[3, 100, 100]} scale={2.5} position={[0, 0, -5]}>
       <MeshDistortMaterial
-        color="#F8FAFC"
+        color="#2563EB"
         attach="material"
-        distort={0.4}
+        distort={0.45}
         speed={1.5}
-        roughness={0.2}
+        roughness={0.4}
         transparent={true}
-        opacity={0.15}
+        opacity={0.06}
         depthWrite={false}
-        blending={THREE.AdditiveBlending}
       />
     </Sphere>
   );
@@ -47,11 +46,10 @@ const SecondarySphere = () => {
           attach="material"
           distort={0.5}
           speed={2}
-          roughness={0.1}
+          roughness={0.2}
           transparent={true}
-          opacity={0.1}
+          opacity={0.05}
           depthWrite={false}
-          blending={THREE.AdditiveBlending}
         />
       </Sphere>
     );
@@ -59,22 +57,22 @@ const SecondarySphere = () => {
 
 const Background3D = () => {
   return (
-    <div className="fixed inset-0 z-0 pointer-events-none bg-brand-dark">
+    <div className="fixed inset-0 z-0 pointer-events-none bg-brand-void">
       {/* CSS base noise for texture */}
-      <div className="absolute inset-0 z-10 opacity-30 mix-blend-overlay bg-noise"></div>
+      <div className="absolute inset-0 z-10 opacity-[0.03] mix-blend-multiply bg-noise"></div>
       
       <Canvas
         camera={{ position: [0, 0, 5], fov: 45 }}
-        gl={{ antialias: false, alpha: true, powerPreference: "high-performance" }}
-        dpr={[1, 1.5]} // Performance scaling
+        gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+        dpr={[1, 1.5]}
         className="absolute inset-0 z-0"
       >
-        <ambientLight intensity={0.5} />
-        <directionalLight position={[10, 10, 5]} intensity={1} color="#ffffff" />
-        <directionalLight position={[-10, -10, -5]} intensity={2} color="#CBD5E1" />
+        <ambientLight intensity={1.5} />
+        <directionalLight position={[10, 10, 5]} intensity={1.2} color="#ffffff" />
+        <directionalLight position={[-10, -10, -5]} intensity={0.8} color="#EFF6FF" />
         
-        {/* Subtle animated stars / dust particles */}
-        <Stars radius={100} depth={50} count={3000} factor={4} saturation={0} fade speed={1} />
+        {/* Subtle animated particles - Dark for light mode */}
+        <Stars radius={100} depth={50} count={1500} factor={4} saturation={0} fade speed={1} />
         
         <AnimatedGradientSphere />
         <SecondarySphere />

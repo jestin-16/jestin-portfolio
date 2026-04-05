@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Github, ExternalLink, GitBranch, Terminal } from 'lucide-react';
+import { Github, ExternalLink, GitBranch, Package } from 'lucide-react';
 
 const ProjectTerminalCard = ({ project }) => {
   const [isCompiling, setIsCompiling] = useState(false);

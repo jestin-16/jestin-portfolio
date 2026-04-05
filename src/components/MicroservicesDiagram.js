@@ -3,7 +3,7 @@ import { useFrame } from '@react-three/fiber';
 import { Text, Float, Line, Sphere, MeshDistortMaterial } from '@react-three/drei';
 import * as THREE from 'three';
 
-const Node = ({ position, label, color = "#00ff88" }) => {
+const Node = ({ position, label, color = "#2563EB" }) => {
   const meshRef = useRef();
 
   useFrame((state) => {
@@ -23,18 +23,23 @@ const Node = ({ position, label, color = "#00ff88" }) => {
             speed={2}
             distort={0.3}
             radius={0.5}
-            emissive={color}
-            emissiveIntensity={1}
             transparent
-            opacity={0.8}
+            opacity={0.15}
+            roughness={0.2}
           />
         </mesh>
+        <mesh position={[0, 0, 0]}>
+          <sphereGeometry args={[0.42, 32, 32]} />
+          <meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.2} />
+        </mesh>
         <Text
-          position={[0, -0.8, 0]}
-          fontSize={0.2}
-          color="white"
+          position={[0, -0.9, 0]}
+          fontSize={0.25}
+          color="#0F172A"
+          font="https://fonts.gstatic.com/s/jetbrainsmono/v18/t64n-818X_E_89Xv7O_K2P_L2FvpTiSZZ-G__r0.woff"
           anchorX="center"
           anchorY="middle"
+          fontWeight="bold"
         >
           {label}
         </Text>
@@ -43,13 +48,13 @@ const Node = ({ position, label, color = "#00ff88" }) => {
   );
 };
 
-const Connection = ({ start, end, color = "#00ff88" }) => {
+const Connection = ({ start, end, color = "#2563EB" }) => {
   const linePoints = useMemo(() => [new THREE.Vector3(...start), new THREE.Vector3(...end)], [start, end]);
   const packetRef = useRef();
 
   useFrame((state) => {
     if (packetRef.current) {
-      const t = (state.clock.elapsedTime * 0.5) % 1;
+      const t = (state.clock.elapsedTime * 0.4) % 1;
       packetRef.current.position.lerpVectors(linePoints[0], linePoints[1], t);
     }
   });
@@ -59,12 +64,12 @@ const Connection = ({ start, end, color = "#00ff88" }) => {
       <Line
         points={linePoints}
         color={color}
-        lineWidth={1}
+        lineWidth={1.5}
         transparent
-        opacity={0.1}
+        opacity={0.15}
       />
-      <Sphere ref={packetRef} args={[0.05, 16, 16]}>
-        <meshBasicMaterial color={color} />
+      <Sphere ref={packetRef} args={[0.06, 16, 16]}>
+        <meshBasicMaterial color={color} transparent opacity={0.6} />
       </Sphere>
     </group>
   );
@@ -72,10 +77,10 @@ const Connection = ({ start, end, color = "#00ff88" }) => {
 
 const MicroservicesDiagram = () => {
   const nodes = [
-    { id: 'gateway', label: 'API Gateway', pos: [0, 2, 0], color: '#00ff88' },
-    { id: 'auth', label: 'Auth Service', pos: [-2, 0, 0], color: '#00d4ff' },
-    { id: 'users', label: 'User Service', pos: [2, 0, 0], color: '#ffb700' },
-    { id: 'db', label: 'PostgreSQL', pos: [0, -2, 0], color: '#ff4757' },
+    { id: 'gateway', label: 'API Gateway', pos: [0, 2.2, 0], color: '#2563EB' },
+    { id: 'auth', label: 'Auth Service', pos: [-2.2, 0, 0], color: '#1E293B' },
+    { id: 'users', label: 'User Service', pos: [2.2, 0, 0], color: '#334155' },
+    { id: 'db', label: 'PostgreSQL', pos: [0, -2.2, 0], color: '#0F172A' },
   ];
 
   const connections = [
@@ -86,7 +91,7 @@ const MicroservicesDiagram = () => {
   ];
 
   return (
-    <group rotation={[0, Math.PI / 6, 0]}>
+    <group rotation={[0, Math.PI / 10, 0]} scale={1.1}>
       {nodes.map((node) => (
         <Node key={node.id} position={node.pos} label={node.label} color={node.color} />
       ))}
