@@ -1,22 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { motion } from 'framer-motion';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ReactLenis } from '@studio-freight/react-lenis';
-import { Canvas } from '@react-three/fiber';
 import SpringbootLoader from './components/SpringbootLoader';
-import BackgroundSystem from './components/BackgroundSystem';
-import VSCodeTabs from './components/VSCodeTabs';
 import StatusBar from './components/StatusBar';
 import Terminal from './components/Terminal';
-import MicroservicesDiagram from './components/MicroservicesDiagram';
 import JSONViewer from './components/JSONViewer';
 import SkillEditor from './components/SkillEditor';
 import ProjectTerminalCard from './components/ProjectTerminalCard';
 import ContactTerminal from './components/ContactTerminal';
-
-import { Copy } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -98,42 +92,27 @@ const scrollToSection = (id) => {
   }
 };
 
-// Advanced Animation variants (Add these back if needed for specific entrance animations)
-
-
-
 const App = () => {
   const [activeSection, setActiveSection] = useState('home');
   const [scrolled, setScrolled] = useState(false);
   const [isAppLoaded, setIsAppLoaded] = useState(false);
   const containerRef = useRef(null);
 
-  // Initialize GSAP Scroll triggers for cinematic entrances and Hero timeline
   useGSAP(() => {
-    if (!isAppLoaded) return; // Wait for the loader to finish
+    if (!isAppLoaded) return;
 
-    // Master Cinematic Entrance Timeline
     const tl = gsap.timeline({ defaults: { ease: 'power4.out', duration: 1.5 }});
     
-    // 1. Background meshes fade in first to establish depth
     tl.fromTo('.background-layer', { opacity: 0 }, { opacity: 1, duration: 2 }, 0)
-    
-    // 2. Navigation fades down
     .fromTo('header', { y: -100, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2 }, 0.5)
-    
-    // 3. 3D Object smoothly scales/rotates in
     .fromTo('.hero-3d-wrapper', { scale: 0.8, opacity: 0, rotationY: 45 }, { scale: 1, opacity: 1, rotationY: 0, duration: 2 }, 0.5)
-
-    // 4. Staggered text reveal
     .fromTo('.hero-badge', { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 1 }, 1)
     .fromTo('.hero-title-part', { y: '100%', opacity: 0 }, { y: '0%', opacity: 1, stagger: 0.15 }, 1.2)
     .fromTo('.hero-desc', { y: 30, opacity: 0 }, { y: 0, opacity: 1 }, 1.6)
     .fromTo('.hero-buttons', { y: 30, opacity: 0 }, { y: 0, opacity: 1 }, 1.8);
 
-    // Section Scroll Parallax Animations
     const sections = gsap.utils.toArray('section:not(#home)');
     sections.forEach((section) => {
-      // Create a parallax effect for section containers to simulate depth (Layer 3 & 4 Z-Space)
       gsap.fromTo(section, 
         { autoAlpha: 0, y: 120, scale: 0.95 },
         {
@@ -157,8 +136,6 @@ const App = () => {
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
-      
-      // Update scroll progress
       const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
       const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
       const scrolled = (winScroll / height) * 100;
@@ -167,15 +144,6 @@ const App = () => {
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      setCursorPos({ x: e.clientX, y: e.clientY });
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
   useEffect(() => {
@@ -196,47 +164,22 @@ const App = () => {
     return () => observer.disconnect();
   }, []);
 
-
-  // Magnetic Button Logic
-  const magneticX = useMotionValue(0);
-  const magneticY = useMotionValue(0);
-  const springConfig = { damping: 15, stiffness: 150, mass: 0.1 };
-  const springX = useSpring(magneticX, springConfig);
-  const springY = useSpring(magneticY, springConfig);
-
-  const handleMagneticMove = (e) => {
-    const { clientX, clientY } = e;
-    const { height, width, left, top } = e.currentTarget.getBoundingClientRect();
-    const middleX = clientX - (left + width / 2);
-    const middleY = clientY - (top + height / 2);
-    magneticX.set(middleX * 0.3);
-    magneticY.set(middleY * 0.3);
-  };
-
-  const handleMagneticLeave = () => {
-    magneticX.set(0);
-    magneticY.set(0);
-  };
-
-
   const handleLoadingComplete = () => {
-    // Add a slight delay to allow the GSAP particle timeline to cleanly finish returning before unmounting
     setTimeout(() => {
         setIsAppLoaded(true);
-    }, 400); // the particle timeline holds for 500ms at the end
-  };  return (
+    }, 400);
+  };
+
+  return (
     <ReactLenis root options={{ lerp: 0.05, smoothWheel: true }}>
       <div ref={containerRef} className="min-h-screen font-sans bg-brand-void text-brand-primary selection:bg-brand-accent selection:text-white relative overflow-hidden">
         
-        {/* Scroll Progress Bar - Editorial Red */}
         <div className="fixed top-0 left-0 w-full h-[2px] z-[100]">
           <div id="scroll-progress" className="h-full bg-brand-accent w-0 transition-all duration-100" />
         </div>
 
-        {/* Loading Overlay */}
         {!isAppLoaded && <SpringbootLoader onLoadingComplete={handleLoadingComplete} />}
 
-      {/* Navigation - Editorial Minimalist */}
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-white/90 backdrop-blur-md border-b border-brand-border ${scrolled ? 'h-14' : 'h-20'}`}
       >
@@ -272,11 +215,9 @@ const App = () => {
         </div>
       </header>
 
-        {/* Hero Section - Asymmetric Editorial Layout */}
         <section id="home" className="relative flex items-center min-h-screen pt-20 px-8 max-w-[1400px] mx-auto overflow-hidden">
           <div className="grid lg:grid-cols-12 gap-12 w-full pt-12">
             
-            {/* Main Heading Area (Col 1-8) */}
             <div className="lg:col-span-8 space-y-12">
               <div className="hero-badge inline-flex items-center space-x-4">
                 <span className="w-8 h-[2px] bg-brand-accent" />
@@ -299,7 +240,6 @@ const App = () => {
               </div>
             </div>
 
-            {/* CTA and Summary Area (Col 9-12) */}
             <div className="lg:col-span-4 flex flex-col justify-end space-y-12 pb-20">
               <div className="space-y-6">
                 <p className="font-mono text-[11px] leading-relaxed text-brand-muted uppercase tracking-widest">
@@ -324,10 +264,8 @@ const App = () => {
           </div>
         </section>
 
-        {/* Main Content Layout */}
         <div className="max-w-[1400px] mx-auto px-8 space-y-64 mb-64">
           
-          {/* About Section - Editorial Spread */}
           <section id="about" className="scroll-mt-24">
             <div className="grid lg:grid-cols-12 gap-20">
               <div className="lg:col-span-1 hidden lg:block">
@@ -381,7 +319,6 @@ const App = () => {
             </div>
           </section>
 
-          {/* Skills Section - The Grid */}
           <section id="skills" className="scroll-mt-24">
             <div className="flex flex-col md:flex-row items-end justify-between mb-24 gap-8">
               <div className="space-y-4">
@@ -399,7 +336,6 @@ const App = () => {
             <SkillEditor skills={SKILLS_NEW} theme="editorial" />
           </section>
 
-          {/* Projects Section - Editorial Cards */}
           <section id="projects" className="scroll-mt-24">
             <div className="mb-24 flex items-center space-x-12">
                <h2 className="text-6xl md:text-8xl font-serif font-black tracking-tight uppercase italic leading-none shrink-0">

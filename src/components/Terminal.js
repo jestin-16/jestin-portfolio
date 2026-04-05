@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
-const Terminal = ({ commands = [], prompt = "jestin@portfolio:~$" }) => {
+const Terminal = ({ commands = [] }) => {
   const [displayedLines, setDisplayedLines] = useState([]);
   const [currentLineIndex, setCurrentLineIndex] = useState(0);
   const [currentText, setCurrentText] = useState("");

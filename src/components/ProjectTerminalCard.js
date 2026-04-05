@@ -1,14 +1,10 @@
-import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Github, ExternalLink, GitBranch, Package } from 'lucide-react';
+import { Github, ExternalLink, GitBranch } from 'lucide-react';
 
 const ProjectTerminalCard = ({ project }) => {
-  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <motion.div 
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       whileHover={{ y: -8 }}

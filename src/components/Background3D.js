@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Stars, Sphere, MeshDistortMaterial } from '@react-three/drei';
-import * as THREE from 'three';
 
 const AnimatedGradientSphere = () => {
   const sphereRef = useRef();
