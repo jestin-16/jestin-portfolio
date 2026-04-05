@@ -228,7 +228,7 @@ const App = () => {
 
   return (
     <ReactLenis root options={{ lerp: 0.05, smoothWheel: true }}>
-      <div ref={containerRef} className="min-h-screen font-sans bg-brand-void text-slate-400 selection:bg-brand-primary/20 relative overflow-hidden cursor-none">
+      <div ref={containerRef} className="min-h-screen font-sans bg-brand-void text-slate-600 selection:bg-brand-secondary/10 selection:text-brand-secondary relative overflow-hidden cursor-none">
         
         {/* Scroll Progress Bar */}
         <div className="fixed top-0 left-0 w-full h-[1px] z-[100]">
@@ -237,11 +237,11 @@ const App = () => {
 
         {/* Custom Cursor: Stellar Glow */}
         <motion.div 
-          className="fixed w-6 h-6 rounded-full border border-white/20 pointer-events-none z-[999] flex items-center justify-center mix-blend-difference"
-          animate={{ x: cursorPos.x - 12, y: cursorPos.y - 12 }}
-          transition={{ type: "spring", stiffness: 400, damping: 35, mass: 0.5 }}
+          className="fixed w-8 h-8 rounded-full border border-slate-900/10 pointer-events-none z-[999] flex items-center justify-center bg-white/40 backdrop-blur-sm shadow-xl"
+          animate={{ x: cursorPos.x - 16, y: cursorPos.y - 16 }}
+          transition={{ type: "spring", stiffness: 500, damping: 40, mass: 0.2 }}
         >
-          <div className="w-1 h-1 bg-white rounded-full shadow-[0_0_10px_white]" />
+          <div className="w-1.5 h-1.5 bg-slate-900 rounded-full" />
         </motion.div>
         
         {/* Loading Overlay */}
@@ -270,8 +270,8 @@ const App = () => {
             </div>
 
             <div className="flex items-center">
-              <span className="status-dot pulsing-green w-2 h-2 rounded-full bg-brand-primary mr-2 shadow-[0_0_8px_rgba(0,255,136,1)]" />
-              <span className="text-[10px] uppercase tracking-widest text-brand-primary font-mono hidden sm:inline">Available for Hire</span>
+              <span className="status-dot pulsing-green w-2 h-2 rounded-full bg-blue-600 mr-2 shadow-[0_0_10px_rgba(37,99,235,0.4)]" />
+              <span className="text-[10px] uppercase tracking-widest text-slate-900 font-mono hidden sm:inline font-bold">READY_TO_DEPLOY</span>
             </div>
           </div>
         </div>
@@ -288,10 +288,10 @@ const App = () => {
                   <span className="w-1 h-1 bg-brand-primary rounded-full animate-ping" />
                   <span>SYSTEM_READY: PORT_3000</span>
                 </div>
-                <h1 className="text-6xl md:text-8xl font-bold text-white leading-tight">
+                <h1 className="text-6xl md:text-8xl font-black text-slate-900 leading-tight tracking-tighter">
                   Backend Engineer.<br />
-                  <span className="italic text-slate-500 text-4xl md:text-5xl font-light">{"// Architecting Systems"}</span><br />
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-slate-500">that scale.</span>
+                  <span className="italic text-slate-400 text-4xl md:text-5xl font-light">{"// Scalable Solutions"}</span><br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-950 via-blue-900 to-slate-800">Architecting 1s & 0s.</span>
                 </h1>
               </div>
 
@@ -308,10 +308,10 @@ const App = () => {
                   onClick={() => {
                     navigator.clipboard.writeText("git clone https://github.com/jestin-16/portfolio.git");
                   }}
-                  className="group relative flex items-center justify-center space-x-3 bg-white text-brand-void px-10 py-4 rounded-full font-mono text-sm font-bold hover:shadow-[0_0_30px_rgba(255,255,255,0.3)] transition-all duration-500"
+                  className="group relative flex items-center justify-center space-x-3 bg-slate-900 text-white px-10 py-4 rounded-full font-mono text-sm font-bold hover:shadow-[0_20px_40px_rgba(15,23,42,0.3)] transition-all duration-500"
                 >
                   <Copy className="w-4 h-4" />
-                  <span>[ $ git clone jestin-shaji ]</span>
+                  <span>[ core: git_sync ]</span>
                 </motion.button>
               </div>
             </div>
@@ -320,9 +320,9 @@ const App = () => {
             <div className="hidden lg:block h-[600px] w-full relative">
               <div className="absolute inset-0 bg-brand-primary/5 rounded-full blur-[100px] opacity-20" />
               <Canvas camera={{ position: [0, 0, 8], fov: 45 }}>
-                <ambientLight intensity={0.5} />
-                <pointLight position={[10, 10, 10]} intensity={1} color="#00ff88" />
-                <pointLight position={[-10, -10, -10]} intensity={0.5} color="#00d4ff" />
+                <ambientLight intensity={1} />
+                <pointLight position={[10, 10, 10]} intensity={1.5} color="#ffffff" />
+                <pointLight position={[-10, -10, -10]} intensity={0.5} color="#3b82f6" />
                 <MicroservicesDiagram />
               </Canvas>
             </div>
@@ -341,13 +341,13 @@ const App = () => {
                   <span>core_profile</span>
                   <span>{"}"}</span>
                 </div>
-                <h2 className="text-5xl md:text-6xl font-bold text-white">System <span className="text-slate-500">Architecture</span></h2>
+                <h2 className="text-5xl md:text-6xl font-black text-slate-900 italic">System <span className="text-blue-600">Architecture</span></h2>
                 <div className="space-y-4 text-slate-400 font-light leading-relaxed text-lg">
                   <p>
                     I am a Backend Developer and MCA student at AJCE, specializing in building the invisible engines that power the modern web.
                   </p>
                   <p>
-                    My focus lies at the intersection of <span className="text-white">Java, Spring Boot, and Cloud Native Architectures</span>. I believe in writing code that isn't just functional, but resilient, scalable, and easy to monitor.
+                    My focus lies at the intersection of <span className="text-blue-600 font-bold">Java, Spring Boot, and Cloud Native Architectures</span>. I believe in writing code that isn't just functional, but resilient, scalable, and easy to monitor.
                   </p>
                 </div>
               </div>
@@ -367,7 +367,7 @@ const App = () => {
                 <span>technical_intelligence</span>
                 <span>{"]"}</span>
               </div>
-              <h2 className="text-5xl md:text-6xl font-bold text-white">The <span className="text-slate-500">Stack</span></h2>
+              <h2 className="text-5xl md:text-6xl font-black text-slate-900 uppercase italic">The <span className="text-blue-600">Stack</span></h2>
             </div>
             <SkillEditor skills={SKILLS_NEW} />
           </section>
@@ -381,7 +381,7 @@ const App = () => {
                 <span>recent_deployments</span>
                 <span>{")"}</span>
               </div>
-              <h2 className="text-4xl md:text-5xl font-bold text-white">Selected <span className="text-brand-primary">Work</span></h2>
+              <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tighter uppercase italic">Selected <span className="text-blue-600">Work</span></h2>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {PROJECTS.map((project, i) => (

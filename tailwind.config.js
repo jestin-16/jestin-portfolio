@@ -7,13 +7,13 @@ module.exports = {
     extend: {
       colors: {
         brand: {
-          void: '#0A0A0F',     // Deep Obsidian
-          surface: '#12121A',  // Stellar Surface
-          primary: '#F8FAFC',  // Platinum White
-          secondary: '#94A3B8', // Cool Slate
-          accent: '#E2E8F0',    // Silver Mist
-          glass: 'rgba(255, 255, 255, 0.02)',
-          dark: '#0A0A0F',
+          void: '#F8FAFC',     // Slate 50
+          surface: '#FFFFFF',  // White
+          primary: '#0F172A',  // Slate 900
+          secondary: '#2563EB', // Blue 600
+          accent: '#64748B',    // Slate 500
+          glass: 'rgba(255, 255, 255, 0.4)',
+          dark: '#F8FAFC',
         }
       },
       fontFamily: {

@@ -17,51 +17,37 @@ const BackgroundSystem = () => {
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
-    // Code Rain Setup
-    const fontSize = 14;
-    const columns = Math.ceil(canvas.width / fontSize);
-    const drops = new Array(columns).fill(1).map(() => Math.random() * -100);
-
-    // Dot Grid Setup
+    // Update Colors for Light Mode
+    const dotColor = 'rgba(15, 23, 42, 0.05)'; // Very faint Slate-900
+    const activeDotColor = 'rgba(37, 99, 235, 0.2)'; // Blue-600 highlight
     const dotSpacing = 30;
     const dotSize = 1;
 
-    const animate = (time) => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const draw = () => {
+      // Clear with Light Mode Background
+      ctx.fillStyle = '#F8FAFC';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // 1. Animated Dot Grid
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
+      // Draw Grid of Dots
       for (let x = 0; x < canvas.width; x += dotSpacing) {
         for (let y = 0; y < canvas.height; y += dotSpacing) {
           const dx = x - mouseRef.current.x;
           const dy = y - mouseRef.current.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          const pulse = Math.sin(time / 2000 + dist / 200) * 0.5 + 0.5;
-          const opacity = 0.02 + pulse * 0.08 * Math.max(0, 1 - dist / 400);
           
-          ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
           ctx.beginPath();
-          ctx.arc(x, y, dotSize * 0.8, 0, Math.PI * 2);
+          if (dist < 150) {
+            const opacity = 1 - (dist / 150);
+            ctx.fillStyle = activeDotColor;
+            ctx.arc(x, y, dotSize + (opacity * 1.5), 0, Math.PI * 2);
+          } else {
+            ctx.fillStyle = dotColor;
+            ctx.arc(x, y, dotSize, 0, Math.PI * 2);
+          }
           ctx.fill();
         }
       }
-
-      // 2. Scrolling Stellar Dust (Replacement for Code Rain)
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.02)';
-      
-      for (let i = 0; i < drops.length; i++) {
-        // Draw a tiny dot instead of text
-        ctx.beginPath();
-        ctx.arc(i * fontSize, drops[i] * fontSize, 0.5, 0, Math.PI * 2);
-        ctx.fill();
-
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.985) {
-          drops[i] = 0;
-        }
-        drops[i] += 0.3;
-      }
-
-      animationFrameId = requestAnimationFrame(animate);
+      animationFrameId = requestAnimationFrame(draw);
     };
 
     const handleMouseMove = (e) => {
@@ -69,7 +55,7 @@ const BackgroundSystem = () => {
     };
 
     window.addEventListener('mousemove', handleMouseMove);
-    animationFrameId = requestAnimationFrame(animate);
+    draw();
 
     return () => {
       window.removeEventListener('resize', resizeCanvas);
