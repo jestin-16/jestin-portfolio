@@ -47,14 +47,14 @@ const ProjectTerminalCard = ({ project }) => {
         {/* Actions - Editorial Links */}
         <div className="flex items-center space-x-10 mt-auto">
           <a 
-            href="#" 
+            href="#!" 
             className="group/link flex items-center space-x-3 text-[10px] text-brand-primary font-black uppercase tracking-[0.3em] transition-all"
           >
             <Github className="w-4 h-4 text-brand-muted group-hover/link:text-brand-accent transition-colors" />
             <span className="group-hover/link:underline decoration-brand-accent underline-offset-4">Source</span>
           </a>
           <a 
-            href="#" 
+            href="#!" 
             className="group/link flex items-center space-x-3 text-[10px] text-brand-accent font-black uppercase tracking-[0.3em] transition-all"
           >
             <ExternalLink className="w-4 h-4 group-hover/link:scale-110 transition-transform" />
