@@ -11,6 +11,8 @@ import JSONViewer from './components/JSONViewer';
 import SkillEditor from './components/SkillEditor';
 import ProjectTerminalCard from './components/ProjectTerminalCard';
 import ContactTerminal from './components/ContactTerminal';
+import { Canvas } from '@react-three/fiber';
+import Hero3DObject from './components/Hero3DObject';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -257,12 +259,37 @@ const App = () => {
                 </div>
               </div>
 
-              <div className="lg:hidden h-[300px] w-full relative">
-                <Terminal commands={TERMINAL_COMMANDS} theme="editorial" />
+                <div className="hidden lg:block hero-3d-wrapper relative h-[550px] w-full">
+                  {/* Technical Data Overlays */}
+                  <div className="absolute -top-4 -left-4 z-10 font-mono text-[9px] text-brand-accent/60 space-y-1 uppercase tracking-tighter">
+                    <div>Ref: ARCH_STRUCT_01</div>
+                    <div>Scale: 1.8.002</div>
+                    <div>Material: Refractive_V2</div>
+                  </div>
+                  
+                  <div className="absolute -bottom-4 -right-4 z-10 font-mono text-[9px] text-brand-primary/40 text-right space-y-1 uppercase tracking-widest">
+                    <div>Lat: 10.8505° N</div>
+                    <div>Lon: 76.2711° E</div>
+                    <div>© 2026 // J.SHAJI</div>
+                  </div>
+
+                  {/* The 3D Component */}
+                  <Canvas 
+                    camera={{ position: [0, 0, 5], fov: 45 }}
+                    gl={{  alpha: true, antialias: true }}
+                    dpr={[1, 2]}
+                  >
+                    <Hero3DObject />
+                  </Canvas>
+                </div>
+
+                <div className="lg:hidden h-[300px] w-full relative">
+                  <Terminal commands={TERMINAL_COMMANDS} theme="editorial" />
+                </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+
 
         <div className="max-w-[1400px] mx-auto px-8 space-y-64 mb-64">
           
