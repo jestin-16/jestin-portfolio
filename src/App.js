@@ -11,8 +11,7 @@ import JSONViewer from './components/JSONViewer';
 import SkillEditor from './components/SkillEditor';
 import ProjectTerminalCard from './components/ProjectTerminalCard';
 import ContactTerminal from './components/ContactTerminal';
-import { Canvas } from '@react-three/fiber';
-import Hero3DObject from './components/Hero3DObject';
+import HeroReveal from './components/HeroReveal';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -106,12 +105,7 @@ const App = () => {
     const tl = gsap.timeline({ defaults: { ease: 'power4.out', duration: 1.5 }});
     
     tl.fromTo('.background-layer', { opacity: 0 }, { opacity: 1, duration: 2 }, 0)
-    .fromTo('header', { y: -100, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2 }, 0.5)
-    .fromTo('.hero-3d-wrapper', { scale: 0.8, opacity: 0, rotationY: 45 }, { scale: 1, opacity: 1, rotationY: 0, duration: 2 }, 0.5)
-    .fromTo('.hero-badge', { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 1 }, 1)
-    .fromTo('.hero-title-part', { y: '100%', opacity: 0 }, { y: '0%', opacity: 1, stagger: 0.15 }, 1.2)
-    .fromTo('.hero-desc', { y: 30, opacity: 0 }, { y: 0, opacity: 1 }, 1.6)
-    .fromTo('.hero-buttons', { y: 30, opacity: 0 }, { y: 0, opacity: 1 }, 1.8);
+    .fromTo('header', { y: -100, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2 }, 0.5);
 
     const sections = gsap.utils.toArray('section:not(#home)');
     sections.forEach((section) => {
@@ -217,78 +211,11 @@ const App = () => {
         </div>
       </header>
 
-        <section id="home" className="relative flex items-center min-h-screen pt-20 px-8 max-w-[1400px] mx-auto overflow-hidden">
-          <div className="grid lg:grid-cols-12 gap-12 w-full pt-12">
-            
-            <div className="lg:col-span-8 space-y-12">
-              <div className="hero-badge inline-flex items-center space-x-4">
-                <span className="w-8 h-[2px] bg-brand-accent" />
-                <span className="text-[10px] font-mono font-black uppercase tracking-[0.5em] text-brand-accent">Software Architect</span>
-              </div>
-
-              <h1 className="text-7xl md:text-[8.5rem] lg:text-[10rem] font-serif font-black leading-[0.85] tracking-[-0.04em] text-brand-primary">
-                Developing <br />
-                <span className="italic font-light text-brand-muted ml-0 lg:ml-20">Systems.</span> <br />
-                <span className="text-brand-accent relative">
-                  Architecture.
-                  <span className="absolute -right-12 top-10 w-8 h-8 rounded-full border-[6px] border-brand-accent hidden md:block" />
-                </span>
-              </h1>
-
-              <div className="hero-desc max-w-xl border-l-[4px] border-brand-accent pl-12 py-4">
-                <p className="text-xl md:text-2xl font-medium leading-relaxed text-brand-muted italic">
-                  Crafting high-performance <span className="text-brand-primary font-bold">Java ecosystems</span> with editorial precision and architected resilience.
-                </p>
-              </div>
-            </div>
-
-            <div className="lg:col-span-4 flex flex-col justify-end space-y-12 pb-20">
-              <div className="space-y-6">
-                <p className="font-mono text-[11px] leading-relaxed text-brand-muted uppercase tracking-widest">
-                  {"// Based in Kerala, India"} <br />
-                  {"// Specializing in Spring Boot"} <br />
-                  {"// MCA Graduate Candidate"}
-                </p>
-                <div className="flex gap-4">
-                  <button 
-                     onClick={() => scrollToSection('contact')}
-                     className="bg-brand-primary text-white px-10 py-5 rounded-full font-mono text-[10px] font-black uppercase tracking-widest hover:bg-brand-accent transition-colors duration-500 shadow-[0_20px_40px_rgba(0,0,0,0.1)] hover:shadow-[0_20px_50px_rgba(227,0,15,0.3)]"
-                  >
-                    Establish_Connection
-                  </button>
-                </div>
-              </div>
-
-                <div className="hidden lg:block hero-3d-wrapper relative h-[550px] w-full">
-                  {/* Technical Data Overlays */}
-                  <div className="absolute -top-4 -left-4 z-10 font-mono text-[9px] text-brand-accent/60 space-y-1 uppercase tracking-tighter">
-                    <div>Ref: ARCH_STRUCT_01</div>
-                    <div>Scale: 1.8.002</div>
-                    <div>Material: Refractive_V2</div>
-                  </div>
-                  
-                  <div className="absolute -bottom-4 -right-4 z-10 font-mono text-[9px] text-brand-primary/40 text-right space-y-1 uppercase tracking-widest">
-                    <div>Lat: 10.8505° N</div>
-                    <div>Lon: 76.2711° E</div>
-                    <div>© 2026 // J.SHAJI</div>
-                  </div>
-
-                  {/* The 3D Component */}
-                  <Canvas 
-                    camera={{ position: [0, 0, 5], fov: 45 }}
-                    gl={{  alpha: true, antialias: true }}
-                    dpr={[1, 2]}
-                  >
-                    <Hero3DObject />
-                  </Canvas>
-                </div>
-
-                <div className="lg:hidden h-[300px] w-full relative">
-                  <Terminal commands={TERMINAL_COMMANDS} theme="editorial" />
-                </div>
-              </div>
-            </div>
-          </section>
+        <section id="home" className="relative flex items-center min-h-screen pt-32 px-8 max-w-[1400px] mx-auto overflow-hidden">
+          <div className="w-full">
+            <HeroReveal />
+          </div>
+        </section>
 
 
         <div className="max-w-[1400px] mx-auto px-8 space-y-64 mb-64">
