@@ -6,7 +6,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ReactLenis } from '@studio-freight/react-lenis';
 import SpringbootLoader from './components/SpringbootLoader';
 import StatusBar from './components/StatusBar';
-import Terminal from './components/Terminal';
 import JSONViewer from './components/JSONViewer';
 import SkillEditor from './components/SkillEditor';
 import ProjectTerminalCard from './components/ProjectTerminalCard';
@@ -55,12 +54,6 @@ const ABOUT_DATA = {
   "status": "open_to_work: true"
 };
 
-const TERMINAL_COMMANDS = [
-  { input: "whoami", output: "Jestin Shaji — Backend Developer. Specializing in high-performance Java architectures." },
-  { input: "java --version", output: "openjdk 21.0.2 2024-01-16 LTS" },
-  { input: "git log --oneline --max-count=3", output: "a1b2c3d (HEAD -> main) feat: optimize microservices scaling\nb4c5d6e fix: database connection layering\nc7d8e9f chore: implement auth service security" },
-  { input: "./run --passion", output: "Building scalable systems that matter. One microservice at a time." },
-];
 
 const PROJECTS = [
   {
