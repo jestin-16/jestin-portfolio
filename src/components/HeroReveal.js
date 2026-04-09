@@ -39,7 +39,7 @@ const HeroReveal = () => {
           variants={lineVariants} 
           className="font-mono text-[10px] md:text-sm tracking-[0.5em] text-brand-muted uppercase"
         >
-          // ARCHITECTING_RESILIENCE.V1
+          {"// ARCHITECTING_RESILIENCE.V1"}
         </motion.p>
       </div>
 

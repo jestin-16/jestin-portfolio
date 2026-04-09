@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useRef } from 'react';
+import { motion } from 'framer-motion';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -36,7 +36,6 @@ const SKILLS = [
 ];
 
 const App = () => {
-  const [activeSection, setActiveSection] = useState('home');
   const containerRef = useRef(null);
 
   useGSAP(() => {
@@ -178,9 +177,9 @@ const App = () => {
                 </a>
                 <div className="flex space-x-12 pt-12">
                    {['LinkedIn', 'GitHub', 'Twitter'].map(link => (
-                    <a key={link} href="#" className="font-mono text-[10px] uppercase tracking-[0.5em] hover:text-brand-muted transition-colors interactive">
+                    <button key={link} className="font-mono text-[10px] uppercase tracking-[0.5em] hover:text-brand-muted transition-colors interactive">
                       {link}
-                    </a>
+                    </button>
                    ))}
                 </div>
               </div>
