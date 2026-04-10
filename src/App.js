@@ -39,9 +39,11 @@ const App = () => {
   const containerRef = useRef(null);
 
   useGSAP(() => {
-    const sections = gsap.utils.toArray('section').slice(1);
+    // Select all sections EXCEPT the home which has its own entry animation
+    const sections = gsap.utils.toArray('section:not(#home)');
+    
     sections.forEach((section) => {
-      gsap.fromTo(section,
+      gsap.fromTo(section, 
         { opacity: 0, y: 50 },
         {
           opacity: 1,
@@ -56,6 +58,9 @@ const App = () => {
         }
       );
     });
+
+    // Refresh ScrollTrigger to ensure all markers and triggers are correct
+    ScrollTrigger.refresh();
   }, { scope: containerRef });
 
   const scrollToSection = (id) => {

@@ -3,18 +3,18 @@ import { motion } from 'framer-motion';
 
 const HeroReveal = () => {
   const containerVariants = {
-    hidden: { opacity: 0 },
+    hidden: { opacity: 1 }, // Changed from 0 to 1 to ensure visibility
     visible: { 
       opacity: 1, 
       transition: { 
         staggerChildren: 0.15,
-        delayChildren: 0.4
+        delayChildren: 0.2
       } 
     }
   };
 
   const lineVariants = {
-    hidden: { y: "100%", rotate: 5, opacity: 0 },
+    hidden: { y: "100%", rotate: 2, opacity: 1 }, // Ensure opacity is 1
     visible: { 
       y: 0, 
       rotate: 0,
