@@ -59,8 +59,10 @@ const App = () => {
       );
     });
 
-    // Refresh ScrollTrigger to ensure all markers and triggers are correct
-    ScrollTrigger.refresh();
+    // Refresh ScrollTrigger after a small delay to ensure all markers and triggers are correct
+    setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 100);
   }, { scope: containerRef });
 
   const scrollToSection = (id) => {
