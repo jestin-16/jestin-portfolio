@@ -39,7 +39,7 @@ const App = () => {
   const containerRef = useRef(null);
 
   useGSAP(() => {
-    const sections = gsap.utils.toArray('section');
+    const sections = gsap.utils.toArray('section').slice(1);
     sections.forEach((section) => {
       gsap.fromTo(section, 
         { opacity: 0, y: 50 },
